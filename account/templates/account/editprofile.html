@@ -1,0 +1,48 @@
+{% extends 'account/base.html' %}
+{% load static %}
+
+
+{% block title %}Profile{% endblock title %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8 mx-auto bg-light">
+            <div class="m-3 p-3 ">
+                <div class="card-header">
+                        <h3 class="font-italic">Edit Profile</h3>
+                </div>
+                
+                <hr>
+                <div class="card-body">
+                    <form action="" method='POST' novalidate enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        {% for fm in u_form%}
+                            <div class="form-group">
+                                {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+                            </div>
+                        {% endfor %}
+
+                        {% for fm in p_form%}
+                            <div class="form-group">
+                                {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+                            </div>
+                        {% endfor %}
+                        
+                        <div class="my-3">
+                            <input type="submit" value="Save" class="btn btn-primary">
+                        </div>
+                        
+                    </form> 
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+    
+{% endblock content %}   

@@ -1,0 +1,127 @@
+{% extends 'account/base.html' %}
+{% load static %}
+
+{% block title %}Fault View{% endblock title %}
+
+{% block mycss %}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">-->
+
+{% endblock mycss %}
+
+
+
+{% block content %}
+
+    
+    <div class="col-sm-8 bg-light mx-auto">
+            <h4 class="text-center alert alert-info">Report Problem</h4>
+            <hr>
+            <form action="" method="POST" class="">
+                {% csrf_token %}
+                <!--Equipment and Runway-->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Equipment</label>
+                        <select class="form-control" name="equipment">
+                            {% for equipment_obj in equipments %}
+                                <option value="{{equipment_obj.id}}">{{equipment_obj.equipment}}</option>
+                            {% endfor %}
+   
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Runway</label>
+                        <select class="form-control" name="runway">
+                            {% for runway_obj in runways %}
+                                <option value="{{runway_obj.id}}">{{runway_obj.runway}}</option>
+                            {% endfor %}
+   
+                        </select>
+                    </div>
+                </div>
+                <!--Start Date and End Date-->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="text" class="form-control dateinput" name="startdateinput" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>End Date</label>
+                            <input type="text" class="form-control dateinput" name="endtdateinput" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <!--Start Time and End Time-->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Start Time</label>
+                            <input type="text" class="form-control timeinput" name="starttimeinput" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>End Time</label>
+                            <input type="text" class="form-control timeinput" name="endttimeinput" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <!--Fault Location-->
+                <label>Fault Location</label>
+                <select class="form-control" name="location">
+                    {% for location in locations %}
+                        <option value="{{location.id}}">{{location.location}}</option>
+                    {% endfor %}    
+                </select>
+                <!--Fault Discription-->
+                <div class="form-group">
+                    <label for="fault_discription">Fault Discription</label>
+                    <textarea class="form-control rounded-0" name="fault_discription" rows="6"></textarea>
+                </div>
+
+                <!--Action Taken-->
+                <div class="form-group">
+                    <label for="action_taken">Action Taken</label>
+                    <textarea class="form-control rounded-0" name="action_taken" rows="6"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success form-control" value="Report">
+                </div>
+                
+            </form>
+            <br>
+    </div>
+
+{% endblock content %}
+
+{% block myjs %}
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>-->
+    
+    <script>
+        $( function() {
+            $( ".dateinput" ).datepicker({
+                changeYear:true,
+                changeMonth:true,
+                dateFormat:'yy-mm-dd'
+            });
+        } );
+    </script>
+
+   <script>
+        $( function() {
+            //$( ".datetimeinput" ).datetimepicker({ dateFormat: 'yy-mm-dd', maxDate: 0, controlType: 'select'}).attr("autocomplete", "off") ;
+            $( ".timeinput" ).timepicker({ dateFormat: 'yy-mm-dd', maxDate: 0, controlType: 'select'}).attr("autocomplete", "off") ;
+            //$( ".datetimeinput" ).datepicker({ dateFormat: 'yy-mm-dd' }).attr("autocomplete", "off") ;
+        });
+  </script>
+   
+{% endblock myjs %}

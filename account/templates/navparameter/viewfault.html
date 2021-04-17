@@ -1,0 +1,58 @@
+{% extends 'account/base.html' %}
+
+{% block title %}Fault View{% endblock title %}
+{% block mycss %}
+    <style>
+        body{
+            color:white;
+        }
+    </style>
+{% endblock mycss %}
+{% block content %}
+<div class="col-sm-10 mx-auto mt-5 bg-dark">
+    <h4 class="text-center alert alert-info">Fault Record</h4>
+    <table class="table text-white">
+
+        {% if fault %}
+            <tr>
+                <th>Id</th>
+                <th>Equipment</th>
+                <th>Runway</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Fault Location</th>
+                <th>Fault Discription</th>
+                <th>Action Taken</th>
+                <th>Action</th> 
+            </tr>
+            {% for f in fault %}
+                <tr>
+                    <td>{{f.id}}</td>
+                    <td>{{f.equipment}}</td>
+                    <td>{{f.runway}}</td>
+                    <td>{{f.start_date}}</td>
+                    <td>{{f.end_date}}</td>
+                    <td>{{f.start_time}}</td>
+                    <td>{{f.end_time}}</td>
+                    <td>{{f.location}}</td>
+                    <td>{{f.fault_discription}}</td>
+                    <td>{{f.action_taken}}</td>
+
+                    <td>
+                        <a href="{% url 'updatefault' f.id%}" class="btn btn-warning btn-sm"> Edit</a>
+                        <form action="{% url 'deletefault' f.id %}" 
+                            method = 'post' class="d-inline"> {% csrf_token %}
+                                <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %} 
+            <h4 class="text-center alert alert-warning">No Record Found</h4>
+        {% endif %}
+
+    </table>
+</div>
+{% endblock content %}

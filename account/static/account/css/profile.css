@@ -1,0 +1,78 @@
+.main {
+    background-color: #f9f9fa;
+    height: 600px;
+}
+
+
+
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+    box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+    border: none;
+    height: 600px;
+}
+
+.bg-c-lite-green {
+    background: -webkit-gradient(linear, left top, right top, from(#f29263), to(#ee5a6f));
+    background: linear-gradient(to right, #ee5a6f, #f29263);
+    text-align: center;
+
+}
+.user-profile-img{
+    border-radius: 5px 0 0 5px;
+}
+
+
+.user-name{
+    margin-top: 30px;
+    font-size: 40px;
+   
+}
+
+.user-profile-img{
+    margin-top: 50px;
+}
+.user-profile-img img{
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    padding: 5px;
+    height: 200px;
+    width: 150px;
+
+}
+.user-profile-img img:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+
+.img-radius {
+    border-radius: 5px
+}
+.right{
+    height: 600px;
+    color: black;
+}
+.profile-info{
+    text-align: center;
+}
+.profile-info p{ 
+    color: black;
+    font-size: 40px;
+    font-style: italic;
+}
+
+.right-all{
+    text-align: center;
+    margin-top: 50px;
+    color: black;
+}
+
+hr { 
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}

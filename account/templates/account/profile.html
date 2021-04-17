@@ -1,0 +1,60 @@
+{% extends 'account/base.html' %}
+{% load static %}
+
+
+{% block title %}Profile{% endblock title %}
+{% block mycss %}
+    <link rel="stylesheet" href="{% static 'account/css/profile.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=neon|outline|emboss|shadow-multiple">
+{% endblock mycss %}
+
+{% block content %}
+<div class="container my-5 main">
+   <div class="row">
+     <div class="col-sm-4 card bg-c-lite-green">
+        <div class="pro-name-img">
+            <div class="user-profile-img">
+                <img src="{{user.profile.image.url}}" class="img-radius" alt="User-Profile-Image">
+            </div>
+            <div class="user-name">
+                <p class="font-effect-shadow-multiple name">@{{user.username}}</p>
+            </div>
+        </div>    
+        
+     </div>
+
+     <div class="col-sm-8 card right">
+         <div class="profile-info mt-5"><p>Profile Information</p></div>
+         <hr>
+        <div class="right-all">
+            
+            <div class="row p-5"> 
+                <div class="col-sm-6 ">
+                
+                    <div class="row">
+                    <i class="far fa-user"></i>{{name}}
+                    </div>
+                    <div class="row mt-4">
+                        <i class="fas fa-map-marker-alt"></i>{{user.profile.address}}
+                    </div>
+
+                </div>
+                <div class="col-sm-6">
+                    
+                    <div class="row">
+                        <i class="fas fa-envelope"></i>{{user.email}}
+                    </div>
+
+                    <div class="row mt-4">
+                        <i class="fas fa-phone-square-alt"></i>{{user.profile.phone}}
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+     </div>
+    </div>
+</div>
+    
+{% endblock content %}   
