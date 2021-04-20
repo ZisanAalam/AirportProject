@@ -1,7 +1,7 @@
 from django.db.models import fields
-from .models import Profile,FaultEntry
+from .models import FaultEntry
 from django.contrib.auth import forms
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UsernameField, PasswordResetForm,SetPasswordForm, UserChangeForm,PasswordChangeForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UsernameField, PasswordResetForm, SetPasswordForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django import forms
 from django.db import models
@@ -10,26 +10,34 @@ from django.forms.widgets import PasswordInput
 from django.utils.translation import gettext, gettext_lazy as _
 from django.contrib.admin.widgets import AdminDateWidget, AdminTimeWidget
 
+
 class CreateUserForm(UserCreationForm):
-    password1 = forms.CharField(widget=PasswordInput(attrs={'class':'form-control'}), label='Password')
-    password2 = forms.CharField(widget=PasswordInput(attrs={'class':'form-control'}), label='Confirm Password')
+    password1 = forms.CharField(widget=PasswordInput(
+        attrs={'class': 'form-control'}), label='Password')
+    password2 = forms.CharField(widget=PasswordInput(
+        attrs={'class': 'form-control'}), label='Confirm Password')
+
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email']
-        labels = {'email':'Email', 'first_name':'First Name', 'last_name':'Last Name'}
+        labels = {'email': 'Email', 'first_name': 'First Name',
+                  'last_name': 'Last Name'}
 
-        widgets = {'username':forms.TextInput(attrs={'class':'form-control'}),
-                    'first_name':forms.TextInput(attrs={'class':'form-control'}),
-                    'last_name':forms.TextInput(attrs={'class':'form-control'}),
-                    'email':forms.EmailInput(attrs={'class':'form-control'}),
-                }
+        widgets = {'username': forms.TextInput(attrs={'class': 'form-control'}),
+                   'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+                   'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+                   'email': forms.EmailInput(attrs={'class': 'form-control'}),
+                   }
+
 
 class LoginForm(AuthenticationForm):
-    username = UsernameField(widget=forms.TextInput(attrs={'autofocus': True,'class':'form-control'}))
+    username = UsernameField(widget=forms.TextInput(
+        attrs={'autofocus': True, 'class': 'form-control'}))
     password = forms.CharField(
         label=_("Password"),
         strip=False,
-        widget=forms.PasswordInput(attrs={'autocomplete': 'current-password','class':'form-control'}),
+        widget=forms.PasswordInput(
+            attrs={'autocomplete': 'current-password', 'class': 'form-control'}),
     )
 
     error_messages = {
@@ -49,6 +57,7 @@ class LoginForm(AuthenticationForm):
         self.user_cache = None
         super().__init__(*args, **kwargs)
 
+
 class UserPasswordResetForm(PasswordResetForm):
     def __init__(self, *args, **kwargs):
         super(UserPasswordResetForm, self).__init__(*args, **kwargs)
@@ -58,74 +67,87 @@ class UserPasswordResetForm(PasswordResetForm):
         'placeholder': 'Enter your email',
         'type': 'email',
         'name': 'email'
-        }))
+    }))
+
 
 class UserSetPasswordForm(SetPasswordForm):
     new_password1 = forms.CharField(
         label=_("New password"),
-        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password','class': 'form-control'}),
+        widget=forms.PasswordInput(
+            attrs={'autocomplete': 'new-password', 'class': 'form-control'}),
         strip=False,
-        
+
     )
     new_password2 = forms.CharField(
         label=_("New password confirmation"),
         strip=False,
-        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password','class': 'form-control'}),
+        widget=forms.PasswordInput(
+            attrs={'autocomplete': 'new-password', 'class': 'form-control'}),
     )
+
 
 class UserChangePasswordForm(PasswordChangeForm):
     old_password = forms.CharField(
         label=_("Old password"),
         strip=False,
-        widget=forms.PasswordInput(attrs={'autocomplete': 'current-password', 'autofocus': True,'class': 'form-control'}),
+        widget=forms.PasswordInput(
+            attrs={'autocomplete': 'current-password', 'autofocus': True, 'class': 'form-control'}),
     )
     new_password1 = forms.CharField(
         label=_("New password"),
-        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password','class': 'form-control'}),
+        widget=forms.PasswordInput(
+            attrs={'autocomplete': 'new-password', 'class': 'form-control'}),
         strip=False,
-        
+
     )
     new_password2 = forms.CharField(
         label=_("New password confirmation"),
         strip=False,
-        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password','class': 'form-control'}),
+        widget=forms.PasswordInput(
+            attrs={'autocomplete': 'new-password', 'class': 'form-control'}),
     )
 
     field_order = ['old_password', 'new_password1', 'new_password2']
 
+
 class EditUserForm(UserChangeForm):
     password = None
+
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email']
-        labels = {'email':'Email', 'first_name':'First Name', 'last_name':'Last Name'}
+        labels = {'email': 'Email', 'first_name': 'First Name',
+                  'last_name': 'Last Name'}
 
-        widgets = {'username':forms.TextInput(attrs={'class':'form-control'}),
-                    'first_name':forms.TextInput(attrs={'class':'form-control'}),
-                    'last_name':forms.TextInput(attrs={'class':'form-control'}),
-                    'email':forms.EmailInput(attrs={'class':'form-control'}),
-                }
+        widgets = {'username': forms.TextInput(attrs={'class': 'form-control'}),
+                   'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+                   'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+                   'email': forms.EmailInput(attrs={'class': 'form-control'}),
+                   }
+
 
 class EditProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['phone','address','image']
-        
-        widgets = {'phone':forms.TextInput(attrs={'class':'form-control'}),
-                    'address':forms.TextInput(attrs={'class':'form-control'}),
-                }
+        fields = ['phone', 'address', 'image']
+
+        widgets = {'phone': forms.TextInput(attrs={'class': 'form-control'}),
+                   'address': forms.TextInput(attrs={'class': 'form-control'}),
+                   }
+
 
 class FaultEntryForm(forms.ModelForm):
     class Meta:
         model = FaultEntry
 
-        fields = ['equipment','runway','start_date','end_date','start_time','end_time','location','fault_discription','action_taken']
-        labels = {'location':'Fault Location',}
+        fields = ['equipment', 'runway', 'start_date', 'end_date', 'start_time',
+                  'end_time', 'location', 'fault_discription', 'action_taken']
+        labels = {'location': 'Fault Location', }
         widgets = {
-            'start_date':forms.DateInput(attrs={'class':'dateinput form-control'}),
-            'end_date':forms.DateInput(attrs={'class':'dateinput form-control'}),
-            'start_time':forms.TimeInput(attrs={'class':'timeinput form-control'}),
-            'end_time':forms.TimeInput(attrs={'class':'timeinput form-control'}),
-            'fault_discription':forms.Textarea(attrs={'class':'form-control','rows':'6'}),
-            'action_taken':forms.Textarea(attrs={'class':'form-control','rows':'6'}),
+            'start_date': forms.DateInput(attrs={'class': 'dateinput form-control'}),
+            'end_date': forms.DateInput(attrs={'class': 'dateinput form-control'}),
+            'start_time': forms.TimeInput(attrs={'class': 'timeinput form-control'}),
+            'end_time': forms.TimeInput(attrs={'class': 'timeinput form-control'}),
+            'fault_discription': forms.Textarea(attrs={'class': 'form-control', 'rows': '6'}),
+            'action_taken': forms.Textarea(attrs={'class': 'form-control', 'rows': '6'}),
         }
