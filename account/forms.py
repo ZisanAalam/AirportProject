@@ -1,5 +1,5 @@
 from django.db.models import fields
-from .models import FaultEntry
+from .models import FaultEntry, FaultLocation, MyUser, Runway
 from django.contrib.auth import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UsernameField, PasswordResetForm, SetPasswordForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
@@ -18,15 +18,16 @@ class CreateUserForm(UserCreationForm):
         attrs={'class': 'form-control'}), label='Confirm Password')
 
     class Meta:
-        model = User
-        fields = ['username', 'first_name', 'last_name', 'email']
+        model = MyUser
+        fields = ['user_name', 'first_name', 'last_name', 'email', 'airport']
         labels = {'email': 'Email', 'first_name': 'First Name',
                   'last_name': 'Last Name'}
 
-        widgets = {'username': forms.TextInput(attrs={'class': 'form-control'}),
+        widgets = {'user_name': forms.TextInput(attrs={'class': 'form-control'}),
                    'first_name': forms.TextInput(attrs={'class': 'form-control'}),
                    'last_name': forms.TextInput(attrs={'class': 'form-control'}),
                    'email': forms.EmailInput(attrs={'class': 'form-control'}),
+                   'airport': forms.Select(attrs={'class': 'form-control'}),
                    }
 
 
@@ -45,7 +46,7 @@ class LoginForm(AuthenticationForm):
             "Please enter a correct %(username)s and password. Note that both "
             "fields may be case-sensitive."
         ),
-        'inactive': _("This account is inactive."),
+        'inactive': _("This account is not verified."),
     }
 
     def __init__(self, request=None, *args, **kwargs):
@@ -114,29 +115,31 @@ class EditUserForm(UserChangeForm):
     password = None
 
     class Meta:
-        model = User
-        fields = ['username', 'first_name', 'last_name', 'email']
+        model = MyUser
+        fields = ['user_name', 'first_name', 'last_name',
+                  'email', 'phone', 'address', 'image']
         labels = {'email': 'Email', 'first_name': 'First Name',
                   'last_name': 'Last Name'}
 
-        widgets = {'username': forms.TextInput(attrs={'class': 'form-control'}),
+        widgets = {'user_name': forms.TextInput(attrs={'class': 'form-control'}),
                    'first_name': forms.TextInput(attrs={'class': 'form-control'}),
                    'last_name': forms.TextInput(attrs={'class': 'form-control'}),
                    'email': forms.EmailInput(attrs={'class': 'form-control'}),
-                   }
-
-
-class EditProfileForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['phone', 'address', 'image']
-
-        widgets = {'phone': forms.TextInput(attrs={'class': 'form-control'}),
+                   'phone': forms.TextInput(attrs={'class': 'form-control'}),
                    'address': forms.TextInput(attrs={'class': 'form-control'}),
                    }
 
 
 class FaultEntryForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super(FaultEntryForm, self).__init__(*args, **kwargs)
+        if user is not None and not user.is_superuser:
+            self.fields['location'].queryset = FaultLocation.objects.filter(
+                airport=user.airport)
+            self.fields['runway'].queryset = Runway.objects.filter(
+                airport=user.airport)
+
     class Meta:
         model = FaultEntry
 

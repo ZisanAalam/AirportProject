@@ -1,46 +1,35 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from .models import Runway, Equipment, FaultEntry, FaultLocation, State, Airport
+from .models import Runway, Equipment, FaultEntry, FaultLocation, Airport, MyUser
 
 # Register your models here.
 
 
-""" @admin.register(Profile)
-class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'phone', 'image', 'user_id')
-    readonly_fields = ['user']
-
-    def get_queryset(self, request):
-        all_profiles = super(ProfileAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return all_profiles
-        profile_of_request_user = all_profiles.filter(user=request.user)
-        return all_profiles.filter(airport=profile_of_request_user[0].airport)
- """
-
-""" admin.site.unregister(User)
-
-
 class UserAdmin(BaseUserAdmin):
-    search_fields = ['username', 'first_name', 'last_name']
-    list_display = ['username', 'first_name', 'is_active', 'is_staff']
-
-    def changelist_view(self, request, extra_context=None):
-        if not request.user.is_superuser:
-            self.fieldsets = (
-                (None, {'fields': ('username', 'password',)}),
-                ('Permissions', {'fields': ('is_staff', 'is_active')}),
-                ('Groups', {'fields': ('groups',)})
-            )
-            self.add_fieldsets = (
-                (None,
-                 {
-                     'classes': ('wide',),
-                     'fields': ('username', 'email', 'first_name', 'last_name', 'password1', 'password2', 'is_active', 'is_staff',)
-                 }),
-            )
-        return super(UserAdmin, self).changelist_view(request, extra_context)
+    ordering = ('user_name',)
+    search_fields = ('email', 'user_name', 'first_name',
+                     'middle_name', 'last_name', 'phone', 'address',)
+    list_filter = ('is_active', 'is_staff', 'groups',)
+    list_display = ('user_name', 'email', 'first_name',
+                    'is_active', 'is_staff', )
+    fieldsets = (
+        ('Account', {'fields': ('email', 'user_name', 'password',), },),
+        ('Personal', {'fields': (('first_name',
+         'middle_name',), 'last_name', 'phone', 'address',)}),
+        ('Airport', {'fields': ('airport',)}),
+        ('Permissions', {'fields': ('is_staff',
+         'is_active'), 'description': 'Check the "is staff" option to provide admin access and check the "is active" option to verify users'},
+         ),
+        ('Groups', {'fields': ('groups',)}),
+        ('Image', {'fields': ('image',)})
+    )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('email', 'user_name', 'first_name', 'password1', 'password2', 'airport', 'is_active', 'is_staff', 'groups',)}
+         ),
+    )
 
     def get_queryset(self, request):
         all_users = super(UserAdmin, self).get_queryset(request)
@@ -48,22 +37,37 @@ class UserAdmin(BaseUserAdmin):
             return all_users
         all_users = all_users.exclude(
             id__in=[each_user.id for each_user in all_users if each_user.is_superuser])
-        profile_of_current_user = Profile.objects.filter(user=request.user)
-        state_of_user = profile_of_current_user[0].airport.state
-        airport_of_user = profile_of_current_user[0].airport
-        if request.user.groups.filter(name="State admin").exists():
-            return all_users.filter(profile__in=Profile.objects.filter(airport__in=Airport.objects.filter(state=state_of_user)))
-        all_users = all_users.exclude(
-            id__in=[each_user.id for each_user in all_users if each_user.groups.filter(name="State admin").exists()])
-        return all_users.filter(profile__in=Profile.objects.filter(airport=airport_of_user))
+        return all_users.filter(airport=request.user.airport)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "airport" and not request.user.is_superuser:
+            kwargs["queryset"] = Airport.objects.filter(
+                id=request.user.airport.id)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
-admin.site.register(User, UserAdmin) """
+admin.site.register(MyUser, UserAdmin)
 
-admin.site.register(Runway)
+
+class RunwayAdmin(admin.ModelAdmin):
+    list_display = ('runway', 'airport')
+
+    def get_queryset(self, request):
+        all_runways = super(RunwayAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return all_runways
+        return all_runways.filter(airport=request.user.airport)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "airport" and not request.user.is_superuser:
+            kwargs["queryset"] = Airport.objects.filter(
+                id=request.user.airport.id)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+
+admin.site.register(Runway, RunwayAdmin)
 admin.site.register(Equipment)
 admin.site.register(Airport)
-admin.site.register(State)
 
 
 @admin.register(FaultEntry)
@@ -71,19 +75,41 @@ class FaultEntryAdmin(admin.ModelAdmin):
     list_display = ['equipment', 'runway', 'start_date', 'end_date',
                     'start_time', 'end_time', 'fault_discription', 'action_taken']
 
+    def get_queryset(self, request):
+        all_faultentries = super(
+            FaultEntryAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return all_faultentries
+        return all_faultentries.filter(runway__in=Runway.objects.filter(airport=request.user.airport))
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "runway" and not request.user.is_superuser:
+            kwargs["queryset"] = Runway.objects.filter(
+                airport=request.user.airport)
+        elif db_field.name == "location" and not request.user.is_superuser:
+            kwargs["queryset"] = FaultLocation.objects.filter(
+                airport=request.user.airport)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
 
 @admin.register(FaultLocation)
 class FaultLocationAdmin(admin.ModelAdmin):
-    list_display = ['location']
+    list_display = ['location', 'airport']
+
+    def get_queryset(self, request):
+        all_faultlocations = super(
+            FaultLocationAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return all_faultlocations
+        return all_faultlocations.filter(airport=request.user.airport)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "airport" and not request.user.is_superuser:
+            kwargs["queryset"] = Airport.objects.filter(
+                id=request.user.airport.id)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 admin.site.site_header = "Airport Authority of India"
-
-
-class AirportProfileAdmin(admin.ModelAdmin):
-    readonly_fields = ('airport',)
-
-    def get_queryset(self, request):
-        all_profiles = super(AirportProfileAdmin, self).get_queryset(request)
-        profile_of_request_user = all_profiles.filter(user=request.user)
-        return all_profiles.filter(airport=profile_of_request_user[0].airport)
+admin.site.index_title = "Admin site"
+admin.site.site_title = "Airport Authority of India"
