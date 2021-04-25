@@ -1,21 +1,21 @@
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, render
-from .forms import CreateUserForm, LoginForm, EditUserForm,  UserChangePasswordForm, FaultEntryForm
+from .forms import CreateUserForm, LoginForm, EditUserForm,  UserChangePasswordForm, FaultEntryForm, RunwayForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import update_session_auth_hash
-from .models import Equipment, Runway, FaultEntry, FaultLocation
+from .models import Airport, Equipment, MyUser, Runway, FaultEntry, FaultLocation
 from django.views import View
 from django.views.generic.base import RedirectView, TemplateView
 from .decorators import authenticated_user, unauthenticated_user
 
 # Create your views here.
 
-
 @unauthenticated_user
-def Home(request):
+def home(request):
     return render(request, 'account/home.html')
+
 # About
 
 
@@ -115,19 +115,17 @@ def user_profile_add(request):
 # update user profile
 @unauthenticated_user
 def user_profile_edit(request):
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            u_fm = EditUserForm(request.POST, instance=request.user)
-            if u_fm.is_valid():
-                u_fm.save()
-                messages.success(
-                    request, "Profile Updated Successfully Successfully !!!")
-                return redirect('profile')
-        else:
-            u_fm = EditUserForm(instance=request.user)
-        return render(request, 'account/editprofile.html', {'u_form': u_fm})
+    
+    if request.method == 'POST':
+        u_fm = EditUserForm(request.POST, instance=request.user)
+        if u_fm.is_valid():
+            u_fm.save()
+            messages.success(
+                request, "Profile Updated Successfully Successfully !!!")
+            return redirect('profile')
     else:
-        redirect('login')
+        u_fm = EditUserForm(instance=request.user)
+    return render(request, 'account/editprofile.html', {'u_form': u_fm})
 
 
 class AddFaultView(TemplateView):
@@ -228,7 +226,45 @@ class ViewFault(TemplateView):
 
 # Calculate Navigation Parameter
 
-
 @unauthenticated_user
 def calculate_nav_parameter(request):
     return render(request, 'navparameter/calculate_nav_parameters.html')
+
+
+#Runway
+def view_runway(request):
+    runways = Runway.runways = Runway.objects.filter(airport=request.user.airport)
+    return render(request,'runway/viewrunway.html',{'runways':runways})
+
+def add_runway(request):
+    if request.method=="POST":
+        fm = RunwayForm(request.POST)
+        if fm.is_valid():
+            messages.success(request, 'Runway Added Successfully !!! ')
+            runway = fm.cleaned_data['runway']
+            airport = request.user.airport
+            Runway.objects.create(airport=airport,runway=runway)
+            return redirect('viewrunway')
+    else: 
+        fm = RunwayForm
+    return render(request, 'runway/addrunway.html',{'form':fm})
+
+def edit_runway(request,id):
+    if request.method=='POST':
+        pi = Runway.objects.get(pk=id)
+        fm = RunwayForm(request.POST, instance=pi)
+        if fm.is_valid():
+            fm.save()
+            messages.success(
+                request, "Runway Updated Successfully !!!")
+            return redirect('viewrunway')
+    else:
+        pi = Runway.objects.get(pk=id)
+        fm = RunwayForm(instance=pi)
+    return render(request, 'runway/editrunway.html',{'form':fm})
+
+def delete_runway(request,id):
+    if request.method=='POST':
+        pi = Runway.objects.get(pk=id)
+        pi.delete()
+        return redirect('viewrunway')

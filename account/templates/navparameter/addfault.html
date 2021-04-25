@@ -22,15 +22,6 @@
                 <!--Equipment and Runway-->
                 <div class="row">
                     <div class="col-sm-6">
-                        <label>Equipment</label>
-                        <select class="form-control" name="equipment">
-                            {% for equipment_obj in equipments %}
-                                <option value="{{equipment_obj.id}}">{{equipment_obj.equipment}}</option>
-                            {% endfor %}
-   
-                        </select>
-                    </div>
-                    <div class="col-sm-6">
                         <label>Runway</label>
                         <select class="form-control" name="runway">
                             {% for runway_obj in runways %}
@@ -39,20 +30,31 @@
    
                         </select>
                     </div>
+                    
+                    <div class="col-sm-6">
+                        <label>Equipment</label>
+                        <select class="form-control" name="equipment">
+                            {% for equipment_obj in equipments %}
+                                <option value="{{equipment_obj.id}}">{{equipment_obj.equipment}}</option>
+                            {% endfor %}
+   
+                        </select>
+                    </div>
+                    
                 </div>
                 <!--Start Date and End Date-->
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Start Date</label>
-                            <input type="text" class="form-control dateinput" name="startdateinput" autocomplete="off">
+                            <input type="text" class="form-control dateinput" name="startdateinput" autocomplete="off" placeholder="YY-MM-DD">
                         </div>
                     </div>
 
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>End Date</label>
-                            <input type="text" class="form-control dateinput" name="endtdateinput" autocomplete="off">
+                            <input type="text" class="form-control dateinput" name="endtdateinput" autocomplete="off" placeholder="YY-MM-DD">
                         </div>
                     </div>
                 </div>
@@ -61,14 +63,14 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Start Time</label>
-                            <input type="text" class="form-control timeinput" name="starttimeinput" autocomplete="off">
+                            <input type="text" class="form-control timeinput" name="starttimeinput" autocomplete="off" placeholder="HH:MM:SS">
                         </div>
                     </div>
 
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>End Time</label>
-                            <input type="text" class="form-control timeinput" name="endttimeinput" autocomplete="off">
+                            <input type="text" class="form-control timeinput" name="endttimeinput" autocomplete="off" placeholder="HH:MM:SS">
                         </div>
                     </div>
                 </div>
@@ -101,10 +103,11 @@
 
 {% endblock content %}
 
+<!--
 {% block myjs %}
 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>
     
     <script>
         $( function() {
@@ -115,13 +118,6 @@
             });
         } );
     </script>
-
-   <script>
-        $( function() {
-            //$( ".datetimeinput" ).datetimepicker({ dateFormat: 'yy-mm-dd', maxDate: 0, controlType: 'select'}).attr("autocomplete", "off") ;
-            $( ".timeinput" ).timepicker({ dateFormat: 'yy-mm-dd', maxDate: 0, controlType: 'select'}).attr("autocomplete", "off") ;
-            //$( ".datetimeinput" ).datepicker({ dateFormat: 'yy-mm-dd' }).attr("autocomplete", "off") ;
-        });
-  </script>
    
 {% endblock myjs %}
+-->

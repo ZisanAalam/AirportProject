@@ -1,17 +1,13 @@
 {% extends 'account/base.html' %}
 
-{% block title %}Fault View{% endblock title %}
+{% block title %}Problem View{% endblock title %}
 {% block mycss %}
-    <style>
-        body{
-            color:white;
-        }
-    </style>
+
 {% endblock mycss %}
 {% block content %}
-<div class="col-sm-10 mx-auto mt-5 bg-dark">
-    <h4 class="text-center alert alert-info">Fault Record</h4>
-    <table class="table text-white">
+<div class="col-sm-12 mx-auto mt-5 bg-light">
+    <h4 class="text-center alert alert-info">Problem Record</h4>
+    <table class="table">
 
         {% if fault %}
             <tr>

@@ -7,7 +7,7 @@ from . decorators import unauthenticated_user
 
 urlpatterns = [
     path('', views.user_login, name='login'),
-    path('home/', views.Home, name='home'),
+    path('home/', views.home, name='home'),
     path('signup/', views.user_signup, name='signup'),
     path('logout/', views.user_logout, name='logout'),
     path('profile/', views.user_profile, name='profile'),
@@ -17,10 +17,15 @@ urlpatterns = [
     path('about/', views.About, name='about'),
     path('contact/', views.Contact, name='contact'),
 
+    path('viewrunway/', views.view_runway, name='viewrunway'),
+    path('editrunway/<int:id>', views.edit_runway, name='editrunway'),
+    path('addrunway/', views.add_runway, name='addrunway'),
+    path('deleterunway/<int:id>', views.delete_runway, name='deleterunway'),
+
 
     path('reset_password/',
-         unauthenticated_user(auth_views.PasswordResetView.as_view(
-             template_name="account/password_reset.html", form_class=UserPasswordResetForm)),
+         auth_views.PasswordResetView.as_view(
+             template_name="account/password_reset.html", form_class=UserPasswordResetForm),
          name="reset_password"),
 
     path('reset_password_sent/',

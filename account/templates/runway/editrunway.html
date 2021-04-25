@@ -1,0 +1,19 @@
+{% extends 'account/base.html' %}
+{% load static %}
+
+{% block title %}Runway Edit{% endblock title %}
+
+
+{% block content %}
+    <div class="col-sm-10">
+        <h3 class="text-dark my-5">Edit Runway</h3>
+       <form action="" method="post" novalidate>
+       {% csrf_token %}
+        <div class="form-group">
+            {{form.as_p}}
+        </div>
+        <input type="submit" value="Edit" class="btn btn-primary">
+       </form>
+    </div>
+{% endblock content %}
+

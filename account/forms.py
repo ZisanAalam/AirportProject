@@ -154,3 +154,12 @@ class FaultEntryForm(forms.ModelForm):
             'fault_discription': forms.Textarea(attrs={'class': 'form-control', 'rows': '6'}),
             'action_taken': forms.Textarea(attrs={'class': 'form-control', 'rows': '6'}),
         }
+
+class RunwayForm(forms.ModelForm):
+    class Meta:
+        model = Runway
+        fields = ['runway']
+        widgets = {
+            'runway': forms.DateInput(attrs={'class': 'form-control'}),
+            
+        }

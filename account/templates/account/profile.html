@@ -32,21 +32,31 @@
                 <div class="col-sm-6 ">
                 
                     <div class="row">
-                    <i class="far fa-user"></i>{{name}}
+                    <i class="far fa-user"></i>&nbsp;{{name}}
                     </div>
                     <div class="row mt-4">
-                        <i class="fas fa-map-marker-alt"></i>{{user.address}}
+                        <i class="fas fa-map-marker-alt"></i>&nbsp;
+                        {% if request.user.address%}
+                            {{user.address}}
+                        {% else %}
+                            None
+                        {% endif %}
                     </div>
 
                 </div>
                 <div class="col-sm-6">
                     
                     <div class="row">
-                        <i class="fas fa-envelope"></i>{{user.email}}
+                        <i class="fas fa-envelope"></i>&nbsp;{{user.email}}
                     </div>
 
                     <div class="row mt-4">
-                        <i class="fas fa-phone-square-alt"></i>{{user.phone}}
+                        <i class="fas fa-phone-square-alt"></i> &nbsp;
+                        {% if request.user.phone%}
+                            {{user.phone}}
+                        {% else %}
+                            None
+                        {% endif %}
                     </div>
                     
                     

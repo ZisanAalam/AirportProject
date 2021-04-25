@@ -1,7 +1,48 @@
 {% extends 'account/base.html' %}
-
+{% load static %}
 {% block title %}Home{% endblock title %}
+{% block mycss %}
+<style>
+
+    .home-img img{
+        border-radius: 5px;
+        margin-top:10px;
+        height: 80%;
+        width: 90%;
+        background-color: white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        margin-bottom: 25px;
+    }
+    .mySlides {display:none;}
+
+</style>
+
+{% endblock mycss %}
+
 
 {% block content %}
-    
+    <div class="col-sm-11 offset-1">
+        <div class="home-img">
+            <img class="mySlides" src="{% static 'account/img/plane11.jpg' %}" alt="Image">
+            <img class="mySlides" src="{% static 'account/img/plane22.jpg' %}" alt="Image">
+            <img class="mySlides" src="{% static 'account/img/plane33.jpg' %}" alt="Image">
+        </div>
+    </div>
+
+<script>
+    var myIndex = 0;
+    carousel();
+
+    function carousel() {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";  
+        }
+        myIndex++;
+        if (myIndex > x.length) {myIndex = 1}    
+        x[myIndex-1].style.display = "block";  
+        setTimeout(carousel, 2000); // Change image every 2 seconds
+    }
+</script>
 {% endblock content %}

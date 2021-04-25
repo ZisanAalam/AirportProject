@@ -19,7 +19,7 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-8 offset-1">
                 <div class="m-4 p-4 bg-light">
                     <div class="card-header">
                         <h3 class="text-center">Create Account</h3>
@@ -27,6 +27,7 @@
             
                     <hr>
                     <div class="card-body">
+                    {% include 'account/messages.html' %}
                         <form action="" method='POST' novalidate>
                             {% csrf_token %}
 

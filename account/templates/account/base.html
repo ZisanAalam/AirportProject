@@ -27,11 +27,13 @@
         <!-- Sidebar Holder -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>Airport Authoriy of India</h3>
+                <h3 >Airport Authoriy of India</h3>
+                
             </div>
 
             <ul class="list-unstyled components">
-                <p>Airport Authoriy of India</p>
+                <p class="text-center">{{ user.airport}}</p>
+                <hr>
                 <li  class="active">
                     <a href="{% url 'home' %}">Home</a>
                 </li>
@@ -47,12 +49,19 @@
                         <li>
                             <a href="#">Performace Analysis</a>
                         </li>
+                        <li>
+                            <a href="{% url 'viewrunway' %}">Runway</a>
+                        </li>
                     </ul>
                 </li>
                 <li>
                     <a href="{% url 'about' %}">About</a>
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Settings</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
+                        
+                        <li>
+                            <a href="{% url 'profile' %}">View Profile</a>
+                        </li>
                         <li>
                             <a href="{% url 'editprofile' %}">Edit Profile</a>
                         </li>
@@ -64,9 +73,8 @@
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a href="{% url 'profile' %}">Profile</a>
-                </li>
+                
+                
                 <li>
                     <a href="{% url 'contact' %}">Contact</a>
                 </li>
@@ -101,13 +109,18 @@
                     </div>
                     <div class="ml-auto text-center">
                         <h7>Welcome</h7>
-                        <h4>{{user.first_name}} {{user.last_name}}</h4>
+                        {% if request.user.first_name %}
+                            <h4>{{user.first_name}} {{user.last_name}}</h4>
+                        {% else %}
+                            <h4>{{user.user_name}}</h4>
+                        {% endif %}
                     </div>
 
                 </div>
             </nav>
 
             {% block content %}
+            {% include 'account/messages.html' %}
                     
             {% endblock content %}
             
@@ -117,6 +130,7 @@
     <script src="{% static 'account/js/popper.js' %}"></script>  
     <script src="{% static 'account/js/all.min.js' %}"></script> 
     <script src="{% static 'account/js/bootstrap.min.js' %}"></script> 
+    <script src="{% static 'account/js/custom.js' %}"></script> 
 
     <script type="text/javascript">
         $(document).ready(function () {
