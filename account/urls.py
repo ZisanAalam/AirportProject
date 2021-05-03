@@ -23,7 +23,6 @@ urlpatterns = [
     path('addrunway/', views.runway.add_runway, name='addrunway'),
     path('deleterunway/<int:id>', views.runway.delete_runway, name='deleterunway'),
 
-
     path('reset_password/',
          auth_views.PasswordResetView.as_view(
              template_name="account/password_reset.html", form_class=UserPasswordResetForm),
@@ -47,7 +46,8 @@ urlpatterns = [
 
     path('ReportProblem/', unauthenticated_user(views.problem.AddFaultView.as_view()),
          name='addfault'),
-     path('ReportProblem/loactionpart-json/<str:location>/', views.problem.get_location_parts, name='loactionpart-json'),
+    path('ReportProblem/loactionpart-json/<str:location>/', views.problem.get_location_parts, name='loactionpart-json'),
+    path('ReportProblem/get_model/',views.problem.get_model, name='get_model'),
     path('updatefault/<int:id>',
          unauthenticated_user(views.problem.updatefault), name='updatefault'),
     path('deletefault/<int:id>',

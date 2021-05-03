@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from .models import Runway, Equipment, FaultEntry, FaultLocation, Airport, MyUser, FaultLocationPart
+from .models import Runway, Equipment, FaultEntry, FaultLocation, Airport, MyUser, FaultLocationPart,Make,Model
 
 # Register your models here.
 
@@ -69,6 +69,8 @@ admin.site.register(Runway, RunwayAdmin)
 admin.site.register(Equipment)
 admin.site.register(Airport)
 admin.site.register(FaultLocationPart)
+admin.site.register(Make)
+admin.site.register(Model)
 
 
 @admin.register(FaultEntry)

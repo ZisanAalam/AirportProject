@@ -79,20 +79,35 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
             img.thumbnail(output_size)
             img.save(self.image.path)
 
-
-class Equipment(models.Model):
-    equipment = models.CharField(max_length=20)
-
-    def __str__(self):
-        return self.equipment
-
-
 class Runway(models.Model):
     runway = models.CharField(max_length=20)
     airport = models.ForeignKey(Airport, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.runway
+
+class Equipment(models.Model):
+    equipment = models.CharField(max_length=20)
+    def __str__(self):
+        return self.equipment
+
+
+class Make(models.Model):
+    name = models.CharField(max_length=50)
+    airport = models.ForeignKey(Airport, on_delete=models.CASCADE, default=None)
+    def __str__(self):
+        return self.name
+
+class Model(models.Model):
+    name = models.CharField(max_length=20)
+    make = models.ForeignKey(Make, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+
+
+
 
 
 class FaultLocation(models.Model):

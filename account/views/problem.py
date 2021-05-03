@@ -1,7 +1,7 @@
 from django.http.response import JsonResponse
 from django.shortcuts import render,redirect
 from django.views.generic.base import  TemplateView
-from account.models import Equipment,Runway,FaultLocation,FaultEntry,FaultLocationPart
+from account.models import Equipment,Runway,FaultLocation,FaultEntry,FaultLocationPart,Model,Make
 from account.decorators import unauthenticated_user
 from account.forms import FaultEntryForm
 
@@ -11,21 +11,17 @@ class ViewFault(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         fm = FaultEntryForm()
-        if not self.request.user.is_superuser:
-            data = FaultEntry.objects.filter(
-                runway__in=Runway.objects.filter(airport=self.request.user.airport))
-            equipments = Equipment.objects.all()
-            runways = Runway.objects.filter(airport=self.request.user.airport)
-            locations = FaultLocation.objects.filter(
-                airport=self.request.user.airport)
-        else:
-            data = FaultEntry.objects.all()
-            equipments = Equipment.objects.all()
-            runways = Runway.objects.all()
-            locations = FaultLocation.objects.all()
+        
+        data = FaultEntry.objects.filter(
+            runway__in=Runway.objects.filter(airport=self.request.user.airport))
+        equipments = Equipment.objects.all()
+        runways = Runway.objects.filter(airport=self.request.user.airport)
+        locations = FaultLocation.objects.filter(
+            airport=self.request.user.airport)
+        makes = Make.objects.filter(airport=self.request.user.airport)
 
         context = {'form': fm, 'fault': data, 'equipments': equipments,
-                   'runways': runways, 'locations': locations}
+                   'runways': runways, 'locations': locations,'makes':makes}
         return context
 
 class AddFaultView(TemplateView):
@@ -105,3 +101,11 @@ def get_location_parts(request,*args, **kwargs):
     selected_location = kwargs.get('location')
     obj_models = list(FaultLocationPart.objects.filter(faultlocation__location=selected_location).values())
     return JsonResponse({'data':obj_models})
+
+@unauthenticated_user
+def get_model(request):
+    make_id = request.GET.get('make_id')
+    print(make_id)
+    md = Model.objects.filter(make_id = make_id)
+
+    return render(request,'navparamenter/model.html',{'models':md})

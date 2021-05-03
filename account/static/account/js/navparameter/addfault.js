@@ -31,3 +31,26 @@ inputLocation.addEventListener('change',e=>{
         }
     })
 })
+
+const makesInput = document.getElementById('makes')
+
+const modeldatabox = document.getElementById('models-data-box')
+const modelText = document.getElementById('model-text')
+        
+makesInput.addEventListener('change',e=>{
+    const makeId = e.target.value
+    modeldatabox.innerHTML = ""
+    modelText.textContent = "Choose a model"
+    modelText.classList.add("default")
+
+    const url = "{% url 'get_model' %}"
+        
+    $.ajax({
+    url : url,
+    data : {"make_id":makeId},
+    success: function(data){
+        $("#models-data-box").html(data)
+    }
+    });
+        
+});
