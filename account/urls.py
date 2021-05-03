@@ -47,6 +47,7 @@ urlpatterns = [
 
     path('ReportProblem/', unauthenticated_user(views.AddFaultView.as_view()),
          name='addfault'),
+     path('ReportProblem/loactionpart-json/<str:location>/', unauthenticated_user(views.get_location_parts), name='loactionpart-json'),
     path('UpdateProblem/<int:id>',
          unauthenticated_user(views.updatefault), name='updatefault'),
     path('DeleteProblem/<int:id>',
@@ -54,7 +55,7 @@ urlpatterns = [
     path('ViewProblem/', unauthenticated_user(views.ViewFault.as_view()), name='viewfault'),
     path('calcnav/', unauthenticated_user(views.calculate_nav_parameter), name='calcnav'),
 
-    path('loactionpart-json/<str:location>/', unauthenticated_user(views.get_location_parts), name='loactionpart-json'),
+    
 
 
 ]
