@@ -75,12 +75,37 @@
                     </div>
                 </div>
                 <!--Fault Location-->
-                <label>Fault Location</label>
-                <select class="form-control" name="location">
-                    {% for location in locations %}
-                        <option value="{{location.id}}">{{location.location}}</option>
-                    {% endfor %}    
-                </select>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Fault Location</label>
+                            
+                            <div class="ui selection dropdown" id="locations">
+                                <input type="hidden" name="location">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Choose fault location</div>
+                                <div class="menu" id="location-data-box">
+                                    {% for location in locations %}
+                                        <div class="item" data-value="{{location}}">{{location.location}}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Fault Location Part</label>
+                            <div class="ui selection dropdown" id="location-parts">
+                                <input type="hidden" name="location-part">
+                                <i class="dropdown icon"></i>
+                                <div class="default text" id="location-Part-Text">Choose part</div>
+                                <div class="menu" id="location-part-data-box">
+                                    <!-- ajax dropdown -->
+                                </div>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!--Fault Discription-->
                 <div class="form-group">
                     <label for="fault_discription">Fault Discription</label>
@@ -103,21 +128,6 @@
 
 {% endblock content %}
 
-<!--
 {% block myjs %}
-
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>
-    
-    <script>
-        $( function() {
-            $( ".dateinput" ).datepicker({
-                changeYear:true,
-                changeMonth:true,
-                dateFormat:'yy-mm-dd'
-            });
-        } );
-    </script>
-   
+    {% static 'account/js/navparameter/addfault.js' %}
 {% endblock myjs %}
--->

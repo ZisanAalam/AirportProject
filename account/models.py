@@ -102,6 +102,13 @@ class FaultLocation(models.Model):
     def __str__(self):
         return self.location
 
+class FaultLocationPart(models.Model):
+    name = models.CharField(max_length=50)
+    faultlocation = models.ForeignKey(FaultLocation, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
 
 class FaultEntry(models.Model):
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE)

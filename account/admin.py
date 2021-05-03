@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from .models import Runway, Equipment, FaultEntry, FaultLocation, Airport, MyUser
+from .models import Runway, Equipment, FaultEntry, FaultLocation, Airport, MyUser, FaultLocationPart
 
 # Register your models here.
 
@@ -68,6 +68,7 @@ class RunwayAdmin(admin.ModelAdmin):
 admin.site.register(Runway, RunwayAdmin)
 admin.site.register(Equipment)
 admin.site.register(Airport)
+admin.site.register(FaultLocationPart)
 
 
 @admin.register(FaultEntry)
@@ -108,6 +109,7 @@ class FaultLocationAdmin(admin.ModelAdmin):
             kwargs["queryset"] = Airport.objects.filter(
                 id=request.user.airport.id)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
 
 
 admin.site.site_header = "Airport Authority of India"

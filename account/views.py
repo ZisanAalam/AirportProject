@@ -1,11 +1,11 @@
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect, render
 from .forms import CreateUserForm, LoginForm, EditUserForm,  UserChangePasswordForm, FaultEntryForm, RunwayForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import update_session_auth_hash
-from .models import Airport, Equipment, MyUser, Runway, FaultEntry, FaultLocation
+from .models import Airport, Equipment, MyUser, Runway, FaultEntry, FaultLocation, FaultLocationPart
 from django.views import View
 from django.views.generic.base import RedirectView, TemplateView
 from .decorators import authenticated_user, unauthenticated_user
@@ -174,7 +174,12 @@ class AddFaultView(TemplateView):
         )
         return redirect('viewfault')
 
-# Add Fault
+# Get Location Parts
+
+def get_location_parts(request,*args, **kwargs):
+    selected_location = kwargs.get('location')
+    obj_models = list(FaultLocationPart.objects.filter(faultlocation__location=selected_location).values())
+    return JsonResponse({'data':obj_models})
 
 
 @unauthenticated_user
