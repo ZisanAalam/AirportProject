@@ -46,8 +46,10 @@ urlpatterns = [
 
     path('ReportProblem/', unauthenticated_user(views.problem.AddFaultView.as_view()),
          name='addfault'),
+     
     path('ReportProblem/loactionpart-json/<str:location>/', views.problem.get_location_parts, name='loactionpart-json'),
-    path('ReportProblem/get_model/',views.problem.get_model, name='get_model'),
+    path('ReportProblem/get_model/<str:make>/',views.problem.get_model, name='get_model'),
+
     path('updatefault/<int:id>',
          unauthenticated_user(views.problem.updatefault), name='updatefault'),
     path('deletefault/<int:id>',

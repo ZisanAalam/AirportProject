@@ -83,8 +83,6 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
 class Runway(models.Model):
     airport = models.ForeignKey(Airport, on_delete=models.CASCADE)
     runway = models.CharField(max_length=20)
-    
-
     def __str__(self):
         return self.runway
 
@@ -96,7 +94,6 @@ class Equipment(models.Model):
         return self.equipment
 
 class Make(models.Model):
-    equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE, default=None)
     name = models.CharField(max_length=50)
     def __str__(self):
         return self.name

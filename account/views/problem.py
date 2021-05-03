@@ -1,3 +1,4 @@
+
 from django.http.response import JsonResponse
 from django.shortcuts import render,redirect
 from django.views.generic.base import  TemplateView
@@ -15,9 +16,8 @@ class ViewFault(TemplateView):
         data = FaultEntry.objects.filter(
             runway__in=Runway.objects.filter(airport=self.request.user.airport))
         runways = Runway.objects.filter(airport=self.request.user.airport)
-        equipments = Equipment.objects.filter(runway_airport=self.request.user.airport)
-        locations = FaultLocation.objects.filter(
-            airport=self.request.user.airport)
+        equipments = Equipment.objects.filter(runway__airport=self.request.user.airport)
+        locations = FaultLocation.objects.all()
 
         context = {'form': fm, 'fault': data, 'equipments': equipments,
                    'runways': runways, 'locations': locations}
@@ -33,9 +33,10 @@ class AddFaultView(TemplateView):
         runways = Runway.objects.filter(airport=self.request.user.airport)
         locations = FaultLocation.objects.filter(
             airport=self.request.user.airport)
-
+        
+        makes = Make.objects.all()
         context = {'equipments': equipments,
-                   'runways': runways, 'locations': locations}
+                   'runways': runways, 'locations': locations,'makes':makes}
         return context
 
     def post(self, request):
@@ -100,9 +101,9 @@ def get_location_parts(request,*args, **kwargs):
     return JsonResponse({'data':obj_models})
 
 @unauthenticated_user
-def get_model(request):
-    make_id = request.GET.get('make_id')
-    print(make_id)
-    md = Model.objects.filter(make_id = make_id)
+def get_model(request,*args, **kwargs):
+    selectedMake = kwargs.get('make')
 
-    return render(request,'navparamenter/model.html',{'models':md})
+    md = list(Model.objects.filter(make__name = selectedMake).values())
+
+    return JsonResponse({'data':md})

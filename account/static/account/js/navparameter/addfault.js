@@ -3,7 +3,7 @@ $('.ui.dropdown').dropdown({
 });
 
 
-/* ----------------------- For Equipment dropdwon ----------------------------------*/
+/* ----------------------- For Equipment dropdown ----------------------------------*/
 const inputRunway = document.getElementById('runways')
 const equipmentDataBox = document.getElementById('equipment-data-box')
 const equipmentText = document.getElementById('equipment-text')
@@ -18,13 +18,12 @@ inputRunway.addEventListener('change',e=>{
         url: `equiment/${selectedRunway}/`,
         method : "GET",
         success: function(response){
-            console.log(response.data)
             const modelsData = response.data
             modelsData.map(item=>{
             const option = document.createElement('div')
-            option.textContent = item.name
+            option.textContent = item.equipment
             option.setAttribute('class','item')
-            option.setAttribute('data-value',item.name)
+            option.setAttribute('data-value',item.equipment)
             equipmentDataBox.appendChild(option)
         })
         },
@@ -51,7 +50,6 @@ inputLocation.addEventListener('change',e=>{
         url: `loactionpart-json/${selectedLocation}/`,
         method : "GET",
         success: function(response){
-            console.log(response.data)
             const modelsData = response.data
             modelsData.map(item=>{
             const option = document.createElement('div')
@@ -67,25 +65,43 @@ inputLocation.addEventListener('change',e=>{
     })
 })
 
+/* ------------------------------------Model Dropdown ------------------------------ */
+
 const makesInput = document.getElementById('makes')
 
 const modeldatabox = document.getElementById('models-data-box')
 const modelText = document.getElementById('model-text')
         
 makesInput.addEventListener('change',e=>{
-    const makeId = e.target.value
+    const selectedMake = e.target.value
     modeldatabox.innerHTML = ""
     modelText.textContent = "Choose a model"
     modelText.classList.add("default")
-
-    const url = "{% url 'get_model' %}"
         
     $.ajax({
-    url : url,
-    data : {"make_id":makeId},
-    success: function(data){
-        $("#models-data-box").html(data)
-    }
-    });
+        url: `get_model/${selectedMake}/`,
+        method : "GET",
+        success: function(response){
+            const modelsData = response.data
+            modelsData.map(item=>{
+            const option = document.createElement('div')
+            option.textContent = item.name
+            option.setAttribute('class','item')
+            option.setAttribute('data-value',item.name)
+            modeldatabox.appendChild(option)
+        })
+        },
+        error: function(error){
+            console.log(error)
+        }
+    })
         
 });
+
+$( function() {
+    $( ".dateinput" ).datepicker({
+        changeYear:true,
+        changeMonth:true,
+        dateFormat:'yy-mm-dd'
+    });
+} );

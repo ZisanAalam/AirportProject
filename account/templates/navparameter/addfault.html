@@ -63,7 +63,9 @@
                             <i class="dropdown icon"></i>
                             <div class="default text">Choose a Make</div>
                             <div class="menu" id="makes-data-box">
-                                
+                                {% for make in makes %}
+                                    <div class="item" data-value="{{make}}">{{make.name}}</div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -87,14 +89,14 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Start Date</label>
-                            <input type="text" class="form-control dateinput" name="startdateinput" autocomplete="off" placeholder="YY-MM-DD">
+                            <input type="text" class="form-control dateinput" name="startdateinput" autocomplete="off" placeholder="Select start date">
                         </div>
                     </div>
 
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>End Date</label>
-                            <input type="text" class="form-control dateinput" name="endtdateinput" autocomplete="off" placeholder="YY-MM-DD">
+                            <input type="text" class="form-control dateinput" name="endtdateinput" autocomplete="off" placeholder="select end date">
                         </div>
                     </div>
                 </div>
@@ -169,5 +171,6 @@
 {% endblock content %}
 
 {% block myjs %}
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{% static 'account/js/navparameter/addfault.js' %}"></script>
 {% endblock myjs %}
