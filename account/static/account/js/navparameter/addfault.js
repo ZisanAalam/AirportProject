@@ -7,7 +7,6 @@ const locationPartDataBox = document.getElementById('location-part-data-box')
 const locationPartText = document.getElementById('location-Part-Text')
 
 inputLocation.addEventListener('change',e=>{
-    console.log(e.target.value)
     const selectedLocation = e.target.value
     locationPartDataBox.innerHTML = ""
     locationPartText.textContent = "Choose a part"

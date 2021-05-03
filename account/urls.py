@@ -7,21 +7,21 @@ from . decorators import unauthenticated_user
 
 
 urlpatterns = [
-    path('', views.user_login, name='login'),
-    path('home/', views.home, name='home'),
-    path('signup/', views.user_signup, name='signup'),
-    path('logout/', views.user_logout, name='logout'),
-    path('profile/', views.user_profile, name='profile'),
-    path('changepass/', views.user_change_pass, name='changepass'),
-    path('editprofile/', views.user_profile_edit, name='editprofile'),
-    path('addprofile/', views.user_profile_add, name='addprofile'),
-    path('about/', views.About, name='about'),
-    path('contact/', views.Contact, name='contact'),
+    path('', views.login.user_login, name='login'),
+    path('home/', views.home.home_page, name='home'),
+    path('signup/', views.signup.user_signup, name='signup'),
+    path('logout/', views.logout.user_logout, name='logout'),
+    path('profile/', views.profile.user_profile, name='profile'),
+    path('changepass/', views.passchange.user_change_pass, name='changepass'),
+    path('editprofile/', views.profile.user_profile_edit, name='editprofile'),
+    path('addprofile/', views.profile.user_profile_add, name='addprofile'),
+    path('about/', views.about.About, name='about'),
+    path('contact/', views.contact.Contact, name='contact'),
 
-    path('viewrunway/', views.view_runway, name='viewrunway'),
-    path('editrunway/<int:id>', views.edit_runway, name='editrunway'),
-    path('addrunway/', views.add_runway, name='addrunway'),
-    path('deleterunway/<int:id>', views.delete_runway, name='deleterunway'),
+    path('viewrunway/', views.runway.view_runway, name='viewrunway'),
+    path('editrunway/<int:id>', views.runway.edit_runway, name='editrunway'),
+    path('addrunway/', views.runway.add_runway, name='addrunway'),
+    path('deleterunway/<int:id>', views.runway.delete_runway, name='deleterunway'),
 
 
     path('reset_password/',
@@ -45,14 +45,15 @@ urlpatterns = [
          name="password_reset_complete"),
 
 
-    path('ReportProblem/', unauthenticated_user(views.AddFaultView.as_view()),
+    path('ReportProblem/', unauthenticated_user(views.problem.AddFaultView.as_view()),
          name='addfault'),
-     path('ReportProblem/loactionpart-json/<str:location>/', unauthenticated_user(views.get_location_parts), name='loactionpart-json'),
-    path('UpdateProblem/<int:id>',
-         unauthenticated_user(views.updatefault), name='updatefault'),
-    path('DeleteProblem/<int:id>',
-         unauthenticated_user(views.deletefault), name='deletefault'),
-    path('ViewProblem/', unauthenticated_user(views.ViewFault.as_view()), name='viewfault'),
-    path('calcnav/', unauthenticated_user(views.calculate_nav_parameter), name='calcnav'),
+     path('ReportProblem/loactionpart-json/<str:location>/', views.problem.get_location_parts, name='loactionpart-json'),
+    path('updatefault/<int:id>',
+         unauthenticated_user(views.problem.updatefault), name='updatefault'),
+    path('deletefault/<int:id>',
+         unauthenticated_user(views.problem.deletefault), name='deletefault'),
+    path('viewfault/', unauthenticated_user(views.problem.ViewFault.as_view()), name='viewfault'),
+    path('calcnav/', unauthenticated_user(views.problem.calculate_nav_parameter), name='calcnav'),
+
 
 ]
