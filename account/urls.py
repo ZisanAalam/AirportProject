@@ -5,6 +5,7 @@ from .forms import UserPasswordResetForm, UserSetPasswordForm
 from django.views.i18n import JavaScriptCatalog
 from . decorators import unauthenticated_user
 
+
 urlpatterns = [
     path('', views.user_login, name='login'),
     path('home/', views.home, name='home'),

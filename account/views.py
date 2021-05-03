@@ -16,16 +16,14 @@ from .decorators import authenticated_user, unauthenticated_user
 def home(request):
     return render(request, 'account/home.html')
 
+
 # About
-
-
 @unauthenticated_user
 def About(request):
     return render(request, 'account/about.html')
 
+
 # Contact
-
-
 @unauthenticated_user
 def Contact(request):
     return render(request, 'account/contact.html')
