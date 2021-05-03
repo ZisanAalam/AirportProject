@@ -54,6 +54,6 @@ urlpatterns = [
          unauthenticated_user(views.problem.deletefault), name='deletefault'),
     path('viewfault/', unauthenticated_user(views.problem.ViewFault.as_view()), name='viewfault'),
     path('calcnav/', unauthenticated_user(views.problem.calculate_nav_parameter), name='calcnav'),
-
-
+    
+    path('ReportProblem/equiment/<str:runway>/',views.equipment.get_equipment,name='get-equipment')
 ]

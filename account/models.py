@@ -1,6 +1,7 @@
 from typing import Tuple
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.db.models.deletion import CASCADE
 from django.db.models.signals import post_save
 from PIL import Image
 from django.utils.timezone import now
@@ -80,21 +81,23 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
             img.save(self.image.path)
 
 class Runway(models.Model):
-    runway = models.CharField(max_length=20)
     airport = models.ForeignKey(Airport, on_delete=models.CASCADE)
+    runway = models.CharField(max_length=20)
+    
 
     def __str__(self):
         return self.runway
 
 class Equipment(models.Model):
+    runway    = models.ForeignKey(Runway,on_delete=models.CASCADE)
     equipment = models.CharField(max_length=20)
+    
     def __str__(self):
         return self.equipment
 
-
 class Make(models.Model):
+    equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE, default=None)
     name = models.CharField(max_length=50)
-    airport = models.ForeignKey(Airport, on_delete=models.CASCADE, default=None)
     def __str__(self):
         return self.name
 

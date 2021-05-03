@@ -19,6 +19,41 @@
             <hr>
             <form action="" method="POST" class="">
                 {% csrf_token %}
+                
+                <!--Equipment and Runway-->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Runway</label>
+                            <div class="ui selection dropdown" id="runways">
+                                <input type="hidden" name="runway">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Choose a Runway</div>
+                                <div class="menu" id="runway-data-box">
+                                    {% for runway in runways %}
+                                        <div class="item" data-value="{{runway}}">{{runway.runway}}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-6">
+                        <label>Equipment</label>
+                        <div class="ui selection dropdown" id="equipments">
+                            <input type="hidden" name="equipment">
+                            <i class="dropdown icon"></i>
+                            <div class="default text" id="equipment-text">Choose an Equipment</div>
+                            <div class="menu" id="equipment-data-box">
+                                {% comment %} {% for equipment in equipments %}
+                                    <div class="item" data-value="{{equipment.id}}">{{equipment.equipment}}</div>
+                                {% endfor %} {% endcomment %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
                 <!--Makes and Model-->
                 <div class="row">
                     <div class="col-sm-6">
@@ -28,9 +63,7 @@
                             <i class="dropdown icon"></i>
                             <div class="default text">Choose a Make</div>
                             <div class="menu" id="makes-data-box">
-                                {% for make in makes %}
-                                    <div class="item" data-value="{{make.id}}">{{make.name}}</div>
-                                {% endfor %}
+                                
                             </div>
                         </div>
                     </div>
@@ -43,39 +76,6 @@
                             <div class="default text" id="model-text">Choose a Model</div>
                             <div class="menu" id="models-data-box">
                                 
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-                <!--Equipment and Runway-->
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Runway</label>
-                            <div class="ui selection dropdown" id="runways">
-                                <input type="hidden" name="runway">
-                                <i class="dropdown icon"></i>
-                                <div class="default text">Choose a Runway</div>
-                                <div class="menu" id="runway-data-box">
-                                    {% for runway in runways %}
-                                        <div class="item" data-value="{{runway.id}}">{{runway.runway}}</div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-sm-6">
-                        <label>Equipment</label>
-                        <div class="ui selection dropdown" id="equipments">
-                            <input type="hidden" name="equipment">
-                            <i class="dropdown icon"></i>
-                            <div class="default text">Choose an Equipment</div>
-                            <div class="menu" id="equipment-data-box">
-                                {% for equipment in equipments %}
-                                    <div class="item" data-value="{{equipment.id}}">{{equipment.equipment}}</div>
-                                {% endfor %}
                             </div>
                         </div>
                     </div>

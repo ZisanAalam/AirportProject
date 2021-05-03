@@ -14,14 +14,13 @@ class ViewFault(TemplateView):
         
         data = FaultEntry.objects.filter(
             runway__in=Runway.objects.filter(airport=self.request.user.airport))
-        equipments = Equipment.objects.all()
         runways = Runway.objects.filter(airport=self.request.user.airport)
+        equipments = Equipment.objects.filter(runway_airport=self.request.user.airport)
         locations = FaultLocation.objects.filter(
             airport=self.request.user.airport)
-        makes = Make.objects.filter(airport=self.request.user.airport)
 
         context = {'form': fm, 'fault': data, 'equipments': equipments,
-                   'runways': runways, 'locations': locations,'makes':makes}
+                   'runways': runways, 'locations': locations}
         return context
 
 class AddFaultView(TemplateView):
@@ -30,13 +29,11 @@ class AddFaultView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         equipments = Equipment.objects.all()
-        if not self.request.user.is_superuser:
-            runways = Runway.objects.filter(airport=self.request.user.airport)
-            locations = FaultLocation.objects.filter(
-                airport=self.request.user.airport)
-        else:
-            runways = Runway.objects.all()
-            locations = FaultLocation.objects.all()
+        
+        runways = Runway.objects.filter(airport=self.request.user.airport)
+        locations = FaultLocation.objects.filter(
+            airport=self.request.user.airport)
+
         context = {'equipments': equipments,
                    'runways': runways, 'locations': locations}
         return context

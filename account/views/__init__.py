@@ -1,1 +1,1 @@
-from . import about,contact,home,login,logout,passchange,problem,profile,runway,signup
+from . import about,contact,home,login,logout,passchange,problem,profile,runway,signup,equipment
