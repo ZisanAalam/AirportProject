@@ -55,7 +55,4 @@ urlpatterns = [
     path('ViewProblem/', unauthenticated_user(views.ViewFault.as_view()), name='viewfault'),
     path('calcnav/', unauthenticated_user(views.calculate_nav_parameter), name='calcnav'),
 
-    
-
-
 ]
