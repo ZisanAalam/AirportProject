@@ -47,7 +47,7 @@ urlpatterns = [
     path('ReportProblem/', unauthenticated_user(views.problem.AddFaultView.as_view()),
          name='addfault'),
      
-    path('ReportProblem/loactionpart-json/<str:location>/', views.problem.get_location_parts, name='loactionpart-json'),
+    path('ReportProblem/loactionpart-json/<int:id>/', views.problem.get_location_parts, name='loactionpart-json'),
     path('ReportProblem/get_model/<str:make>/',views.problem.get_model, name='get_model'),
 
     path('updatefault/<int:id>',
@@ -57,5 +57,5 @@ urlpatterns = [
     path('viewfault/', unauthenticated_user(views.problem.ViewFault.as_view()), name='viewfault'),
     path('calcnav/', unauthenticated_user(views.problem.calculate_nav_parameter), name='calcnav'),
     
-    path('ReportProblem/equiment/<str:runway>/',views.equipment.get_equipment,name='get-equipment')
+    path('ReportProblem/equiment/<int:id>/',views.equipment.get_equipment,name='get-equipment')
 ]

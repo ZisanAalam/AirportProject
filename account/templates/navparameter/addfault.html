@@ -31,7 +31,7 @@
                                 <div class="default text">Choose a Runway</div>
                                 <div class="menu" id="runway-data-box">
                                     {% for runway in runways %}
-                                        <div class="item" data-value="{{runway}}">{{runway.runway}}</div>
+                                        <div class="item" data-value="{{runway.id}}">{{runway.runway}}</div>
                                     {% endfor %}
                                 </div>
                             </div>
@@ -128,7 +128,7 @@
                                 <div class="default text">Choose fault location</div>
                                 <div class="menu" id="location-data-box">
                                     {% for location in locations %}
-                                        <div class="item" data-value="{{location}}">{{location.location}}</div>
+                                        <div class="item" data-value="{{location.id}}">{{location.location}}</div>
                                     {% endfor %}
                                 </div>
                             </div>

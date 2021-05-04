@@ -23,8 +23,10 @@ inputRunway.addEventListener('change',e=>{
             const option = document.createElement('div')
             option.textContent = item.equipment
             option.setAttribute('class','item')
-            option.setAttribute('data-value',item.equipment)
+            option.setAttribute('data-value',item.id)
+            
             equipmentDataBox.appendChild(option)
+            console.log(equipmentDataBox)
         })
         },
         error: function(error){
@@ -55,7 +57,7 @@ inputLocation.addEventListener('change',e=>{
             const option = document.createElement('div')
             option.textContent = item.name
             option.setAttribute('class','item')
-            option.setAttribute('data-value',item.name)
+            option.setAttribute('data-value',item.id)
             locationPartDataBox.appendChild(option)
         })
         },

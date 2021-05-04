@@ -95,9 +95,9 @@ def calculate_nav_parameter(request):
     return render(request, 'navparameter/calculate_nav_parameters.html')
 
 @unauthenticated_user
-def get_location_parts(request,*args, **kwargs):
-    selected_location = kwargs.get('location')
-    obj_models = list(FaultLocationPart.objects.filter(faultlocation__location=selected_location).values())
+def get_location_parts(request,id):
+    selected_location = id
+    obj_models = list(FaultLocationPart.objects.filter(faultlocation_id=selected_location).values())
     return JsonResponse({'data':obj_models})
 
 @unauthenticated_user

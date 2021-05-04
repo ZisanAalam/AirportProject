@@ -66,7 +66,11 @@ class RunwayAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Runway, RunwayAdmin)
-admin.site.register(Equipment)
+
+@admin.register(Equipment)
+class EquipmentAdmin(admin.ModelAdmin):
+    list_display =['id','equipment','runway']
+
 admin.site.register(Airport)
 admin.site.register(FaultLocationPart)
 admin.site.register(Make)
