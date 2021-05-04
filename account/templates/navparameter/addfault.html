@@ -1,7 +1,7 @@
 {% extends 'account/base.html' %}
 {% load static %}
 
-{% block title %}Fault View{% endblock title %}
+{% block title %}Vew Problem{% endblock title %}
 
 {% block mycss %}
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -45,9 +45,7 @@
                             <i class="dropdown icon"></i>
                             <div class="default text" id="equipment-text">Choose an Equipment</div>
                             <div class="menu" id="equipment-data-box">
-                                {% comment %} {% for equipment in equipments %}
-                                    <div class="item" data-value="{{equipment.id}}">{{equipment.equipment}}</div>
-                                {% endfor %} {% endcomment %}
+                                <!-- Dropdown data from ajax-->
                             </div>
                         </div>
                     </div>
@@ -77,7 +75,7 @@
                             <i class="dropdown icon"></i>
                             <div class="default text" id="model-text">Choose a Model</div>
                             <div class="menu" id="models-data-box">
-                                
+                                <!-- Dropdown data from ajax-->
                             </div>
                         </div>
                     </div>
@@ -103,15 +101,16 @@
                 <!--Start Time and End Time-->
                 <div class="row">
                     <div class="col-sm-6">
+                        <div class="form-group">
                             <label>Start Time</label>
-                            <input type="text" class="form-control timeinput" name="starttimeinput" autocomplete="off" placeholder="HH:MM:SS">
+                            <input type="text" class="form-control" name="starttimeinput" autocomplete="off" placeholder="HH:MM:SS">
                         </div>
                     </div>
 
                     <div class="col-sm-6">
-                        <div class="form-group clockpicker">
+                        <div class="form-group ">
                             <label>End Time</label>
-                            <input type="text" class="form-control timeinput" name="endttimeinput" autocomplete="off" placeholder="HH:MM:SS">
+                            <input type="text" class="form-control" name="endttimeinput" autocomplete="off" placeholder="HH:MM:SS">
                         </div>
                     </div>
                 </div>
@@ -135,13 +134,13 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Component</label>
+                            <label>Fault Module</label>
                             <div class="ui selection dropdown" id="location-parts">
                                 <input type="hidden" name="location-part">
                                 <i class="dropdown icon"></i>
-                                <div class="default text" id="location-Part-Text">Choose a part</div>
+                                <div class="default text" id="location-Part-Text">Choose a Module</div>
                                 <div class="menu" id="location-part-data-box">
-                                    <!-- ajax dropdown -->
+                                    <!-- Dropdown data from ajax-->
                                 </div>   
                             </div>
                         </div>

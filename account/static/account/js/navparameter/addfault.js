@@ -49,7 +49,7 @@ inputLocation.addEventListener('change',e=>{
     locationPartText.classList.add("default")
 
     $.ajax({
-        url: `loactionpart-json/${selectedLocation}/`,
+        url: `loactionpart/${selectedLocation}/`,
         method : "GET",
         success: function(response){
             const modelsData = response.data
@@ -109,6 +109,3 @@ $( function() {
         dateFormat:'yy-mm-dd'
     });
 } );
-
-
-$('.clockpicker').clockpicker();

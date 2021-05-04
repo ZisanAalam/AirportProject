@@ -1,11 +1,10 @@
-
 from django.http.response import JsonResponse
 from django.shortcuts import render,redirect
 from django.views.generic.base import  TemplateView
 from account.models import Equipment,Runway,FaultLocation,FaultEntry,FaultLocationPart,Model,Make
 from account.decorators import unauthenticated_user
 from account.forms import FaultEntryForm
-
+from .calc import gethours
 class ViewFault(TemplateView):
     template_name = 'navparameter/viewfault.html'
 
@@ -52,6 +51,9 @@ class AddFaultView(TemplateView):
         make_id = request.POST.get('make')
         model_id = request.POST.get('model')
         locationpart_id = request.POST.get('location-part')
+
+        dt = gethours.get_hrs(start_date_input,end_date_input,start_time_input,end_time_input)
+        down_time = "{0:.2f}".format(dt)
         equipment_obj = Equipment.objects.get(id=equipment_id)
         runway_obj = Runway.objects.get(id=runway_id)
         location_obj = FaultLocation.objects.get(id=location_id)
@@ -67,10 +69,9 @@ class AddFaultView(TemplateView):
             runway=runway_obj,
             make = make_obj,
             model = model_obj,
-            start_date=start_date_input,
-            end_date=end_date_input,
-            start_time=start_time_input,
-            end_time=end_time_input,
+            date=start_date_input,
+            period = '2020-2020', 
+            down_time = down_time,
             location=location_obj,
             locationpart = locationpart_obj,
             fault_discription=discription,
@@ -99,9 +100,6 @@ def updatefault(request, id):
         fm = FaultEntryForm(instance=pi, user=request.user)
         return render(request, 'navparameter/updatefault.html', {'form': fm})
 
-@unauthenticated_user
-def calculate_nav_parameter(request):
-    return render(request, 'navparameter/calculate_nav_parameters.html')
 
 @unauthenticated_user
 def get_location_parts(request,id):
@@ -116,3 +114,8 @@ def get_model(request,id):
     md = list(Model.objects.filter(make_id = selectedMake).values())
 
     return JsonResponse({'data':md})
+
+@unauthenticated_user
+def calculate_nav_parameter(request):
+    makes = Make.objects.all()
+    return render(request, 'navparameter/calculate_nav_parameters.html',{'makes':makes})

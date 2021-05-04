@@ -126,19 +126,15 @@ class FaultLocationPart(models.Model):
 
 
 class FaultEntry(models.Model):
-    equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE)
     runway = models.ForeignKey(Runway, on_delete=models.CASCADE)
+    equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE)
     make = models.ForeignKey(Make, on_delete=models.CASCADE)
     model = models.ForeignKey(Model, on_delete=models.CASCADE)
-    start_date = models.DateField(auto_now_add=False, auto_now=False)
-    end_date = models.DateField(auto_now=False, auto_now_add=False)
-    start_time = models.TimeField(auto_now=False, auto_now_add=False)
-    end_time = models.TimeField(auto_now=False, auto_now_add=False)
-
+    date = models.DateField(auto_now_add=False, auto_now=False)
+    period = models.CharField(max_length=255)
+    down_time = models.CharField(max_length=255)
     location = models.ForeignKey(FaultLocation, on_delete=models.CASCADE)
     locationpart = models.ForeignKey(FaultLocationPart,on_delete=models.CASCADE)
     fault_discription = models.CharField(max_length=255)
     action_taken = models.CharField(max_length=255)
 
-    # start_date_time = models.DateTimeField(auto_now=False,auto_now_add=False,default=datetime.now)
-    # end_date_time = models.DateTimeField(auto_now=False,auto_now_add=False,default=datetime.now)

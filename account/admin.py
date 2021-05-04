@@ -79,8 +79,8 @@ admin.site.register(Model)
 
 @admin.register(FaultEntry)
 class FaultEntryAdmin(admin.ModelAdmin):
-    list_display = ['equipment', 'runway', 'start_date', 'end_date',
-                    'start_time', 'end_time', 'fault_discription', 'action_taken']
+    list_display = ['equipment', 'runway', 'date', 'period',
+                    'down_time', 'fault_discription', 'action_taken']
 
     def get_queryset(self, request):
         all_faultentries = super(

@@ -11,30 +11,29 @@
 
         {% if fault %}
             <tr>
-                <th>Equipment</th>
                 <th>Runway</th>
+                <th>Equipment</th>
                 <th>Make</th>
                 <th>Model</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Start Time</th>
-                <th>End Time</th>
+                <th>Date</th>
+                <th>Down Time</th>
+                <th>Period</th>
                 <th>Fault Location</th>
-                <th>Part</th>
+                <th>Fault Module</th>
                 <th>Fault Discription</th>
                 <th>Action Taken</th>
-                <th>Action</th> 
+                
             </tr>
             {% for f in fault %}
                 <tr>
-                    <td>{{f.equipment}}</td>
                     <td>{{f.runway}}</td>
+                    <td>{{f.equipment}}</td>
                     <th>{{f.make}}</th>
                     <th>{{f.model}}</th>
-                    <td>{{f.start_date}}</td>
-                    <td>{{f.end_date}}</td>
-                    <td>{{f.start_time}}</td>
-                    <td>{{f.end_time}}</td>
+                    <td>{{f.date}}</td>
+                    <td>{{f.down_time}} Hrs</td>
+                    <td>{{f.period}}</td>
+                    
                     <td>{{f.location}}</td>
                     <th>{{f.locationpart}}</th>
                     <td>{{f.fault_discription}}</td>

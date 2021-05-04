@@ -143,14 +143,12 @@ class FaultEntryForm(forms.ModelForm):
     class Meta:
         model = FaultEntry
 
-        fields = ['equipment', 'runway', 'start_date', 'end_date', 'start_time',
-                  'end_time', 'location', 'fault_discription', 'action_taken']
+        fields = ['equipment', 'runway', 'date','period','down_time', 'location', 'fault_discription', 'action_taken']
         labels = {'location': 'Fault Location', }
         widgets = {
-            'start_date': forms.DateInput(attrs={'class': 'dateinput form-control'}),
-            'end_date': forms.DateInput(attrs={'class': 'dateinput form-control'}),
-            'start_time': forms.TimeInput(attrs={'class': 'timeinput form-control'}),
-            'end_time': forms.TimeInput(attrs={'class': 'timeinput form-control'}),
+            'start': forms.DateInput(attrs={'class': 'dateinput form-control'}),
+            'period': forms.DateInput(attrs={'class': 'dateinput form-control'}),
+            'down_time': forms.TimeInput(attrs={'class': 'timeinput form-control'}),
             'fault_discription': forms.Textarea(attrs={'class': 'form-control', 'rows': '6'}),
             'action_taken': forms.Textarea(attrs={'class': 'form-control', 'rows': '6'}),
         }
