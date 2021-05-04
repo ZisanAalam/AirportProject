@@ -48,7 +48,7 @@ urlpatterns = [
          name='addfault'),
      
     path('ReportProblem/loactionpart-json/<int:id>/', views.problem.get_location_parts, name='loactionpart-json'),
-    path('ReportProblem/get_model/<str:make>/',views.problem.get_model, name='get_model'),
+    path('ReportProblem/get_model/<int:id>/',views.problem.get_model, name='get_model'),
 
     path('updatefault/<int:id>',
          unauthenticated_user(views.problem.updatefault), name='updatefault'),

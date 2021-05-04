@@ -64,7 +64,7 @@
                             <div class="default text">Choose a Make</div>
                             <div class="menu" id="makes-data-box">
                                 {% for make in makes %}
-                                    <div class="item" data-value="{{make}}">{{make.name}}</div>
+                                    <div class="item" data-value="{{make.id}}">{{make.name}}</div>
                                 {% endfor %}
                             </div>
                         </div>
@@ -103,14 +103,13 @@
                 <!--Start Time and End Time-->
                 <div class="row">
                     <div class="col-sm-6">
-                        <div class="form-group">
                             <label>Start Time</label>
                             <input type="text" class="form-control timeinput" name="starttimeinput" autocomplete="off" placeholder="HH:MM:SS">
                         </div>
                     </div>
 
                     <div class="col-sm-6">
-                        <div class="form-group">
+                        <div class="form-group clockpicker">
                             <label>End Time</label>
                             <input type="text" class="form-control timeinput" name="endttimeinput" autocomplete="off" placeholder="HH:MM:SS">
                         </div>
@@ -136,7 +135,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Fault Location Part</label>
+                            <label>Part</label>
                             <div class="ui selection dropdown" id="location-parts">
                                 <input type="hidden" name="location-part">
                                 <i class="dropdown icon"></i>

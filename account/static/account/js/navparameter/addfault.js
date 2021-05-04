@@ -89,7 +89,7 @@ makesInput.addEventListener('change',e=>{
             const option = document.createElement('div')
             option.textContent = item.name
             option.setAttribute('class','item')
-            option.setAttribute('data-value',item.name)
+            option.setAttribute('data-value',item.id)
             modeldatabox.appendChild(option)
         })
         },
@@ -100,6 +100,8 @@ makesInput.addEventListener('change',e=>{
         
 });
 
+/* ---------------------------- Date Picker --------------------------------------------- */
+
 $( function() {
     $( ".dateinput" ).datepicker({
         changeYear:true,
@@ -107,3 +109,6 @@ $( function() {
         dateFormat:'yy-mm-dd'
     });
 } );
+
+
+$('.clockpicker').clockpicker();

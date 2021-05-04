@@ -17,10 +17,12 @@ class ViewFault(TemplateView):
             runway__in=Runway.objects.filter(airport=self.request.user.airport))
         runways = Runway.objects.filter(airport=self.request.user.airport)
         equipments = Equipment.objects.filter(runway__airport=self.request.user.airport)
+        make = Make.objects.all()
+        model = Model.objects.all()
         locations = FaultLocation.objects.all()
-
-        context = {'form': fm, 'fault': data, 'equipments': equipments,
-                   'runways': runways, 'locations': locations}
+        locationpart = FaultLocationPart.objects.all()
+        context = {'form': fm, 'fault': data, 'equipments': equipments, 'make':make,'model':model,
+                   'runways': runways, 'locations': locations,'locationpart':locationpart}
         return context
 
 class AddFaultView(TemplateView):
@@ -47,11 +49,15 @@ class AddFaultView(TemplateView):
         start_time_input = request.POST.get("starttimeinput")
         end_time_input = request.POST.get("endttimeinput")
         location_id = request.POST.get("location")
-
+        make_id = request.POST.get('make')
+        model_id = request.POST.get('model')
+        locationpart_id = request.POST.get('location-part')
         equipment_obj = Equipment.objects.get(id=equipment_id)
         runway_obj = Runway.objects.get(id=runway_id)
-
         location_obj = FaultLocation.objects.get(id=location_id)
+        locationpart_obj = FaultLocationPart.objects.get(id=locationpart_id)
+        make_obj = Make.objects.get(id=make_id)
+        model_obj = Model.objects.get(id=model_id)
 
         discription = request.POST.get("fault_discription")
         actiontaken = request.POST.get("action_taken")
@@ -59,11 +65,14 @@ class AddFaultView(TemplateView):
         FaultEntry.objects.create(
             equipment=equipment_obj,
             runway=runway_obj,
+            make = make_obj,
+            model = model_obj,
             start_date=start_date_input,
             end_date=end_date_input,
             start_time=start_time_input,
             end_time=end_time_input,
             location=location_obj,
+            locationpart = locationpart_obj,
             fault_discription=discription,
             action_taken=actiontaken
 
@@ -101,9 +110,9 @@ def get_location_parts(request,id):
     return JsonResponse({'data':obj_models})
 
 @unauthenticated_user
-def get_model(request,*args, **kwargs):
-    selectedMake = kwargs.get('make')
+def get_model(request,id):
+    selectedMake = id
 
-    md = list(Model.objects.filter(make__name = selectedMake).values())
+    md = list(Model.objects.filter(make_id = selectedMake).values())
 
     return JsonResponse({'data':md})
