@@ -188,6 +188,12 @@ a.article:hover {
 #navtable-init {
     display: none;
 }
+#navtable-header {
+    display: none;
+}
+#navtable-init-header {
+    display: none;
+}
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */

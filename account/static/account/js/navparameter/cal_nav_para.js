@@ -61,7 +61,9 @@ Array.from(allinput).forEach(item=>item.onchange=()=>{
         success: function(response){
             console.log(response)
             if(response.data==="invalid"){
+                document.getElementById('navtable-init-header').style.display="none"
                 document.getElementById('navtable-init').style.display="none"
+                document.getElementById('navtable-header').style.display="none"
                 document.getElementById('navtable').style.display="none"
             }
             else{
@@ -118,7 +120,9 @@ Array.from(allinput).forEach(item=>item.onchange=()=>{
                     each_row.appendChild(failureRate)
                     document.getElementById('navtable-body').appendChild(each_row)
                 })
+                document.getElementById('navtable-init-header').style.display="block"
                 document.getElementById('navtable-init').style.display="table"
+                document.getElementById('navtable-header').style.display="block"
                 document.getElementById('navtable').style.display="table"
             }
         },
