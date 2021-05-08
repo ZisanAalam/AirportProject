@@ -1,5 +1,6 @@
+from django.conf.urls import url
 from django.contrib.auth import views as auth_views
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 from .forms import UserPasswordResetForm, UserSetPasswordForm
 from django.views.i18n import JavaScriptCatalog
@@ -46,17 +47,25 @@ urlpatterns = [
 
     path('ReportProblem/', unauthenticated_user(views.problem.AddFaultView.as_view()),
          name='addfault'),
-     
-    path('ReportProblem/loactionpart/<int:id>/', views.problem.get_location_parts, name='loactionpart-json'),
-    path('ReportProblem/get_model/<int:id>/',views.problem.get_model, name='get_model'),
+
+    path('ReportProblem/loactionpart/<int:id>/',
+         views.problem.get_location_parts, name='loactionpart-json'),
+    path('ReportProblem/get_model/<int:id>/',
+         views.problem.get_model, name='get_model'),
 
     path('updatefault/<int:id>',
          unauthenticated_user(views.problem.updatefault), name='updatefault'),
     path('deletefault/<int:id>',
          unauthenticated_user(views.problem.deletefault), name='deletefault'),
-    path('viewfault/', unauthenticated_user(views.problem.ViewFault.as_view()), name='viewfault'),
-    path('PerformanceAnalysis/', unauthenticated_user(views.problem.calculate_nav_parameter), name='calcnav'),
-    path('PerformanceAnalysis/get_model/<int:id>/',views.problem.get_model, name='get_model'),
-    
-    path('ReportProblem/equiment/<int:id>/',views.equipment.get_equipment,name='get-equipment')
+    path('viewfault/', unauthenticated_user(views.problem.ViewFault.as_view()),
+         name='viewfault'),
+    path('PerformanceAnalysis/',
+         unauthenticated_user(views.problem.calculate_nav_parameter), name='calcnav'),
+    path('PerformanceAnalysis/get_model/<int:id>/',
+         views.problem.get_model, name='get_model'),
+    path('PerformanceAnalysis/get_data/',
+         views.problem.nav_calculation, name='get_data'),
+
+    path('ReportProblem/equiment/<int:id>/',
+         views.equipment.get_equipment, name='get-equipment')
 ]

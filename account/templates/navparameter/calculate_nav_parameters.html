@@ -15,13 +15,13 @@
         <h4 class="text-center alert alert-info">Performance Analysis</h4>
         <hr>
         <form action="" method="POST" class="">
-            {% csrf_token %}
+            {% csrf_token %} 
             <!--Makes and Model-->
             <div class="row">
                 <div class="col-sm-6">
-                        <label>Make</label>
+                        <label>Make</label><br/>
                         <div class="ui selection dropdown" id="makes">
-                            <input type="hidden" name="make">
+                            <input type="hidden" name="make" class="myinput" id="nav-make">
                             <i class="dropdown icon"></i>
                             <div class="default text">Choose a Make</div>
                             <div class="menu" id="makes-data-box">
@@ -33,9 +33,9 @@
                 </div>
                     
                 <div class="col-sm-6">
-                        <label>Model</label>
+                        <label>Model</label><br />
                         <div class="ui selection dropdown" id="models">
-                            <input type="hidden" name="model">
+                            <input type="hidden" class="myinput" name="model" id="nav-model">
                             <i class="dropdown icon"></i>
                             <div class="default text" id="model-text">Choose a Model</div>
                             <div class="menu" id="models-data-box">
@@ -45,31 +45,131 @@
                 </div>
                     
             </div>
-
+            <br />
             <!--Start Date and End Date-->
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Start Date</label>
-                        <input type="text" class="form-control dateinput" name="startdateinput" autocomplete="off" placeholder="Select start date">
+                        <input type="text" class="form-control dateinput myinput" name="startdateinput" id="nav-startdate" autocomplete="off" placeholder="Select start date" />
                     </div>
                 </div>
 
                 <div class="col-sm-6">
-                    <div class="form-group">
+                    <div class="form-group ">
                         <label>End Date</label>
-                        <input type="text" class="form-control dateinput" name="endtdateinput" autocomplete="off" placeholder="select end date">
+                        <input type="text" class="form-control dateinput myinput" name="enddateinput" id="nav-enddate" autocomplete="off" placeholder="Select end date">
                     </div>
                 </div>
-            </div>    
+            </div>
+            <!-- br / -->    
+            <!-- div class="col-sm-6">
+                <div class="row">
+                    <label>Navigation Parameters</label>            
+                </div>
+            </div -->
+            
+            <!-- div class="container">
+                <br/>
+            <div class="row">
+                
+                  
+                    <div class="col">
+                    <input type="checkbox" class="form-check-input" name="Integrity">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Integrity
+                    </label>
+                    </div>
+                    <div class="col">
+                    <input type="checkbox" class="form-check-input" name="Reliability">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Reliability
+                    </label>
+                    </div>
+                    <div class="col">
+                    <input type="checkbox" class="form-check-input" name="Availability">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Availability
+                    </label>
+                    </div>
+                    <div class="col">
+                    <input type="checkbox" class="form-check-input" name="Continuity">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Continuity
+                    </label>
+                    </div>
+                </div>
+                
+             
+            </div>
+            </div -->
+            <!-- br / -->
+            <br />
+            
+            <div class="col">
+            <table class="table table-bordered table-hover" id="navtable-init">
+                <thead>
+                    <tr>
+                    <th>
+                        Equipment
+                    </th>
+                    <th>
+                        Fault location
+                    </th>
+                    <th>
+                        Availability
+                    </th>
+                    <th>
+                        Reliability
+                    </th>
+                    <th>
+                        Integrity
+                    </th>
+                    <th>
+                        Continuity
+                    </th>
+                    </tr>
+                </thead>
+                <tbody id="navtable-init-body">
+
+                </tbody>
+            </table>
+            <table class="table table-bordered table-hover" id="navtable">
+                <thead>
+                    <tr>
+                    <th>
+                        Equipment
+                    </th>
+                    <th>
+                        Fault location
+                    </th>
+                    <th>
+                        Faulty module
+                    </th>
+                    <th>
+                        No. of failures
+                    </th>
+                    <th>
+                        Failure rate (fmh)
+                    </th>
+                    </tr>
+                </thead>
+                <tbody id="navtable-body">
+
+                </tbody>
+                
+            </table>
+        
+    </div>
         </form>
         <br>
     </div>
+
 
 {% endblock content %}
 
 {% block myjs %}
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{% static 'account/js/navparameter/cal_nav_para.js' %}"></script>
-    <script>
+    
 {% endblock myjs %}

@@ -182,7 +182,12 @@ a.article:hover {
     opacity: 1;
     margin: 5px auto;
 }
-
+#navtable {
+    display: none;
+}
+#navtable-init {
+    display: none;
+}
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
