@@ -1,11 +1,13 @@
-from django.http.response import JsonResponse
+from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
+from django.db.models import F
 from account.models import Equipment, Runway, FaultLocation, FaultEntry, FaultLocationPart, Model, Make
 from account.decorators import unauthenticated_user
 from account.forms import FaultEntryForm
 from datetime import datetime, date
 from .calc import gethours
+from operator import itemgetter
 import math
 
 
@@ -154,7 +156,10 @@ def nav_calculation(request):
 
         # Retrieve fault entries corresponding to parameters provided
         fault_entries = FaultEntry.objects.filter(make__in=Make.objects.filter(
-            pk=makes_id), model__in=Model.objects.filter(pk=models_id), date__gte=startdate, date__lte=enddate).order_by('equipment', 'location', 'locationpart').values()
+            pk=makes_id), model__in=Model.objects.filter(pk=models_id),
+            date__gte=startdate, date__lte=enddate).order_by('equipment',
+                                                             'location', 'locationpart').values(
+            'id', 'equipment_id', 'down_time', 'location_id', 'locationpart_id')
         fault_entries = list(fault_entries)
 
         # Retrieve equipment,location and faulty module names
@@ -177,7 +182,7 @@ def nav_calculation(request):
                 recent_entry['num_failures'] += 1.0
                 recent_entry['failure_time'] += float(each_item['down_time'])
                 recent_entry['failure_rate'] = recent_entry['num_failures'] / \
-                    recent_entry['operating_time']
+                    recent_entry['failure_time']
                 items_to_be_removed.append(each_item)
             else:
                 recent_entry = each_item
@@ -185,7 +190,7 @@ def nav_calculation(request):
                 recent_entry['failure_time'] = float(recent_entry['down_time'])
                 recent_entry['operating_time'] = (enddate-startdate).days*24.0
                 recent_entry['failure_rate'] = recent_entry['num_failures'] / \
-                    recent_entry['operating_time']
+                    recent_entry['failure_time']
             prev_item = cur_item
 
         # Remove redundant items with same equipment, location and faulty module as calculation already done for them
@@ -193,54 +198,49 @@ def nav_calculation(request):
             fault_entries.remove(each_item_to_be_removed)
 
         # Proceed calculation of nav parameter for each (equipment location combination)
-        prev_item = (-1, -1)
+        fault_entries.sort(key=itemgetter('location_id'))
         nav_parameters = []
-        for each_item in fault_entries:
-            cur_item = (each_item['equipment_id'], each_item['location_id'])
-            if prev_item == cur_item:
+        for index, each_item in enumerate(fault_entries):
+            new_value = {}
+            if index == 0:
+                new_value = {
+                    'total_failure_rate': each_item['failure_rate'],
+                    'total_failure_time': each_item['failure_time'],
+                    'operating_time': each_item['operating_time'],
+                    'tx_mtbf': float('inf'),
+                    'mx_mtbf': float('inf')
+                }
+                new_value['mtbo'] = 1.0/each_item['failure_rate']
+            else:
                 new_value = nav_parameters.pop()
                 new_value['total_failure_rate'] += each_item['failure_rate']
                 new_value['total_failure_time'] += each_item['failure_time']
-                new_value['mtbf'] = 1.0/new_value['total_failure_rate']
-                new_value['availability'] = new_value['mtbf'] / \
-                    (new_value['mtbf']+new_value['total_failure_time'])
-                new_value['integrity'] = 1.0 - \
-                    ((0.0334*0.0334) /
-                     (0.5*0.5*new_value['mtbf']*new_value['mtbf']))
-                if(new_value['equipment'] == "LLZ"):
-                    new_value['reliability'] = math.exp(
-                        -new_value['total_failure_rate']*30.0)
-                    new_value['continuity'] = 1.0-(30.0/new_value['mtbf'])
-                else:
-                    new_value['reliability'] = math.exp(
-                        -new_value['total_failure_rate']*15.0)
-                    new_value['continuity'] = 1.0-(15.0/new_value['mtbf'])
-                nav_parameters.append(new_value)
+                new_value['mtbo'] += 1.0/each_item['failure_rate']
+
+            if each_item['location'] == 'TX':
+                new_value['tx_mtbf'] = 1.0/each_item['failure_rate'] if new_value['tx_mtbf'] == float(
+                    'inf') else (1.0/each_item['failure_rate'])+new_value['tx_mtbf']
             else:
-                new_value = {
-                    'equipment': each_item['equipment'],
-                    'location': each_item['location'],
-                    'equipment_id': each_item['equipment_id'],
-                    'location_id': each_item['location_id'],
-                    'total_failure_rate': each_item['failure_rate'],
-                    'total_failure_time': each_item['failure_time']
-                }
-                new_value['mtbf'] = 1.0/new_value['total_failure_rate']
-                new_value['availability'] = (enddate-startdate).days*24.0 / \
-                    ((enddate-startdate).days*24.0 +
-                     new_value['total_failure_time'])
-                new_value['integrity'] = 1.0 - \
-                    ((0.0334*0.0334) /
-                     (0.5*0.5*new_value['mtbf']*new_value['mtbf']))
-                if(new_value['equipment'] == "LLZ"):
-                    new_value['reliability'] = math.exp(
-                        -new_value['total_failure_rate']*30)
-                    new_value['continuity'] = 1.0-(30.0/new_value['mtbf'])
-                else:
-                    new_value['reliability'] = math.exp(
-                        -new_value['total_failure_rate']*15)
-                    new_value['continuity'] = 1.0-(15.0/new_value['mtbf'])
-                nav_parameters.append(new_value)
-            prev_item = cur_item
+                new_value['mx_mtbf'] = 1.0/each_item['failure_rate'] if new_value['mx_mtbf'] == float(
+                    'inf') else (1.0/each_item['failure_rate'])+new_value['mx_mtbf']
+
+            new_value['mtbf'] = 1.0/new_value['total_failure_rate']
+            new_value['availability'] = (new_value['operating_time']-new_value['total_failure_time']) / \
+                (new_value['operating_time'])
+            new_value['integrity'] = 1.0 - \
+                ((0.0334*0.0334) /
+                 (0.5*0.5*new_value['tx_mtbf']*new_value['mx_mtbf']))
+            new_value['reliability'] = math.exp(
+                -24.0/(new_value['mtbo']*10**6))
+            if each_item['equipment'] == 'GP':
+                new_value['continuity'] = 1.0 - \
+                    (15.0/(new_value['mtbo']*60.0*60.0))
+            else:
+                new_value['continuity'] = 1.0 - \
+                    (30.0/(new_value['mtbo']*60.0*60.0))
+            nav_parameters.append(new_value)
+            if index == len(fault_entries) - 1:
+                nav_parameters[0].pop('tx_mtbf')
+                nav_parameters[0].pop('mx_mtbf')
 
         return JsonResponse({'data': fault_entries, 'navparams': nav_parameters})
