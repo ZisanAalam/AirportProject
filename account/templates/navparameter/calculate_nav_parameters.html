@@ -113,12 +113,6 @@
                 <thead>
                     <tr>
                     <th>
-                        Equipment
-                    </th>
-                    <th>
-                        Fault location
-                    </th>
-                    <th>
                         Availability
                     </th>
                     <th>
@@ -136,6 +130,9 @@
 
                 </tbody>
             </table>
+            <div class="container" id="radar-chart-div">
+                <canvas id="radarChart"></canvas>
+            </div>
             <br />
             <h4 class="text-center" id="navtable-header">Reliability Analysis</h4>
             <br />
@@ -164,6 +161,10 @@
                 </tbody>
                 
             </table>
+            <br />
+            <div class="container" id="line-chart-div">
+                <canvas id="lineChart"></canvas>
+            </div>
         
     </div>
         </form>
@@ -175,6 +176,8 @@
 
 {% block myjs %}
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{% static 'account/js/navparameter/cal_nav_para.js' %}"></script>
+
     
 {% endblock myjs %}
