@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 offset-1">
+                <div class="m-4 p-4 bg-light">
+                    {% include 'account/messages.html' %}
+                    <div class="card-body">
+                    
+                        
+
+                        {% if airport_admin %}
+                            <h3>Please contact your admin to activate your account</h3>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Phone</th>
+                                    </tr>
+                                </thead>
+                              <tbody>
+
+                                {% for admin in airport_admin %}
+                            
+                                    <tr>
+                                        <td>{{admin.first_name}} {{admin.last_name}}</td>
+                                        <td>{{admin.email}}</td>
+                                        <td>{{admin.phone}}</td>
+                                    </tr>
+                                {% endfor %}
+                                
+                              </tbody>
+                            </table>
+
+                            {% else %}
+                                <h3>There is no active airport admin for the selected airport. Please contact super admin to activate your account. 
+                                
+                                </h3>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Phone</th>
+                                        </tr>
+                                    </thead>
+                                <tbody>
+
+                                    {% for admin in super_admin %}
+                                
+                                        <tr>
+                                            <td>{{admin.first_name}} {{admin.last_name}}</td>
+                                            <td>{{admin.email}}</td>
+                                            <td>{{admin.phone}}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    
+                                </tbody>
+                                </table>
+                        {% endif %}
+                        
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <script src="{% static 'account/js/jQuery.js' %}"></script> 
+    <script src="{% static 'account/js/popper.js' %}"></script>  
+    <script src="{% static 'account/js/all.min.js' %}"></script> 
+    <script src="{% static 'account/js/bootstrap.min.js' %}"></script>
+
+
+</body>
+</html>
