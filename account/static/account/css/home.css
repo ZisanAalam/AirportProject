@@ -194,6 +194,12 @@ a.article:hover {
 #navtable-init-header {
     display: none;
 }
+#radarChart {
+    display: none;
+}
+#lineChart {
+    display: none;
+}
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
