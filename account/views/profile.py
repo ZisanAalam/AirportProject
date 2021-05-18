@@ -25,7 +25,7 @@ def user_profile_add(request):
 def user_profile_edit(request):
     
     if request.method == 'POST':
-        u_fm = EditUserForm(request.POST, instance=request.user)
+        u_fm = EditUserForm(request.POST, request.FILES,instance=request.user)
         if u_fm.is_valid():
             u_fm.save()
             messages.success(
