@@ -37,10 +37,10 @@
                 <p class="text-center">{{ user.airport}}</p>
                 <hr>
                 <li  class="active">
-                    <a href="{% url 'home' %}">Home</a>
+                    <a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
                 </li>
                 <li>
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">ILS System</a>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-paper-plane"></i> ILS System</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
                             <a href="{% url 'addfault' %}">Problem Reporting</a>
@@ -57,8 +57,8 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="{% url 'about' %}">About</a>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Settings</a>
+                    <a href="{% url 'about' %}"><i class="fas fa-address-card"></i> About</a>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-cog"></i> Settings</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         
                         <li>
@@ -78,7 +78,7 @@
                 
                 
                 <li>
-                    <a href="{% url 'contact' %}">Contact</a>
+                    <a href="{% url 'contact' %}"><i class="fas fa-envelope"></i> Contact</a>
                 </li>
             </ul>
 

@@ -13,11 +13,11 @@ urlpatterns = [
     path('signup/', views.signup.user_signup, name='signup'),
     path('logout/', views.logout.user_logout, name='logout'),
     path('profile/', views.profile.user_profile, name='profile'),
-    path('changepass/', views.passchange.user_change_pass, name='changepass'),
+    path('change password/', views.passchange.user_change_pass, name='changepass'),
     path('editprofile/', views.profile.user_profile_edit, name='editprofile'),
-    path('addprofile/', views.profile.user_profile_add, name='addprofile'),
-    path('about/', views.about.About, name='about'),
-    path('contact/', views.contact.Contact, name='contact'),
+    #path('addprofile/', views.profile.user_profile_add, name='addprofile'),
+    path('about us/', views.about.About, name='about'),
+    path('contact us/', views.contact.Contact, name='contact'),
 
     path('viewrunway/', views.runway.view_runway, name='viewrunway'),
     path('editrunway/<int:id>', views.runway.edit_runway, name='editrunway'),
@@ -26,22 +26,22 @@ urlpatterns = [
 
     path('reset_password/',
          auth_views.PasswordResetView.as_view(
-             template_name="account/password_reset.html", form_class=UserPasswordResetForm),
+             template_name="account/forgotpassword/password_reset.html", form_class=UserPasswordResetForm),
          name="reset_password"),
 
     path('reset_password_sent/',
          auth_views.PasswordResetDoneView.as_view(
-             template_name="account/password_reset_sent.html"),
+             template_name="account/forgotpassword/password_reset_sent.html"),
          name="password_reset_done"),
 
     path('reset/<uidb64>/<token>/',
          auth_views.PasswordResetConfirmView.as_view(
-             template_name="account/password_reset_form.html", form_class=UserSetPasswordForm),
+             template_name="account/forgotpassword/password_reset_form.html", form_class=UserSetPasswordForm),
          name="password_reset_confirm"),
 
     path('reset_password_complete/',
          auth_views.PasswordResetCompleteView.as_view(
-             template_name="account/password_reset_done.html"),
+             template_name="account/forgotpassword/password_reset_done.html"),
          name="password_reset_complete"),
 
 
@@ -57,7 +57,7 @@ urlpatterns = [
          unauthenticated_user(views.problem.updatefault), name='updatefault'),
     path('deletefault/<int:id>',
          unauthenticated_user(views.problem.deletefault), name='deletefault'),
-    path('viewfault/', unauthenticated_user(views.problem.ViewFault.as_view()),
+    path('view problem/', unauthenticated_user(views.problem.ViewFault.as_view()),
          name='viewfault'),
     path('PerformanceAnalysis/',
          unauthenticated_user(views.problem.calculate_nav_parameter), name='calcnav'),

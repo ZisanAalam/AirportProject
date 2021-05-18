@@ -18,4 +18,4 @@ def user_change_pass(request):
 
     else:
         fm = UserChangePasswordForm(user=request.user)
-    return render(request=request, template_name="account/passworchange.html", context={"form": fm, 'name': request.user.first_name})
+    return render(request=request, template_name="account/changepassword/passworchange.html", context={"form": fm, 'name': request.user.first_name})
