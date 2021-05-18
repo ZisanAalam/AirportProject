@@ -24,18 +24,13 @@
                        
                         <td>{{runway.runway}}</td>
                         
-                        <td>
-                            <a href="{% url 'editrunway' runway.id %}" class="btn btn-warning btn-sm">Edit</a>
 
-                            <!--Delete persmission is given only to admin group 
-                                syntax: perms.(app name).(action)
-                            -->
-                            
-                                <form action="{% url 'deleterunway' runway.id %}" method="post" class="d-inline">
-                                    {% csrf_token %}
-                                    <input type="submit" value="Delete" class="btn btn-danger btn-sm">
-                                </form>
-                           
+                        <td>
+                            <a href="{% url 'editrunway' runway.id %}" class=""><i class="fas fa-edit" style="color:grey"></i></a>
+                            <form action="{% url 'deleterunway' runway.id %}" 
+                                method = 'post' class="d-inline"> {% csrf_token %}
+                                <button type="submit" class="" style="color:red;border: none;"><i class="fas fa-trash-alt"></i></button>
+                            </form>
                         </td>
                     </tr>
                 {% endfor %}

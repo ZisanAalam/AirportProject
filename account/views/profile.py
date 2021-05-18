@@ -15,7 +15,7 @@ def user_profile_add(request):
         if u_fm.is_valid():
             u_fm.save()
             messages.success(
-                request, "Profile Updated Successfully Successfully !!!")
+                request, "Profile Updated Successfully !!!")
             return redirect('login')
     else:
         u_fm = EditUserForm(instance=request.user)
@@ -29,7 +29,7 @@ def user_profile_edit(request):
         if u_fm.is_valid():
             u_fm.save()
             messages.success(
-                request, "Profile Updated Successfully Successfully !!!")
+                request, "Profile Updated Successfully !!!")
             return redirect('profile')
     else:
         u_fm = EditUserForm(instance=request.user)

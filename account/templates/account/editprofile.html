@@ -7,6 +7,35 @@
 
 {% block content %}
 
+<div class="card">
+    <div class="card-header">
+        <h3 class="">Edit Profile</h3>
+    </div>
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col">
+                <form action="" method='POST' novalidate enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {% for fm in u_form%}
+                        <div class="form-group">
+                            {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+                        </div>
+                    {% endfor %}
+
+                                
+                    <div class="my-3">
+                        <input type="submit" value="Save" class="btn btn-primary">
+                    </div>
+                                
+                </form>
+            </div>
+        </div> 
+    </div>
+</div>
+
+<!--
 <div class="container">
     <div class="row">
         <div class="col-sm-8 mx-auto bg-light">
@@ -26,11 +55,12 @@
                             </div>
                         {% endfor %}
 
-                        {% for fm in p_form%}
+                        
+                        {% comment %} {% for fm in p_form%}
                             <div class="form-group">
                                 {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
                             </div>
-                        {% endfor %}
+                        {% endfor %} {% endcomment %}
                         
                         <div class="my-3">
                             <input type="submit" value="Save" class="btn btn-primary">
@@ -44,5 +74,5 @@
     </div>
 
 </div>
-    
+-->
 {% endblock content %}   
