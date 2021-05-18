@@ -6,10 +6,11 @@
 {% block mycss %}
     <link rel="stylesheet" href="{% static 'account/css/profile.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=neon|outline|emboss|shadow-multiple">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 {% endblock mycss %}
 
 {% block content %}
-<div class="container my-5 main">
+<!-- div class="container my-5 main">
    <div class="row">
      <div class="col-sm-4 card bg-c-lite-green">
         <div class="pro-name-img">
@@ -65,6 +66,112 @@
         </div>
      </div>
     </div>
+</div -->
+
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title text-center">Profile Information</h2>
+        <br />
+        <br />
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <div class="container" id="user-image-card">
+                        <div class="user-profile-img text-center" id="rounded-profile">
+                            <img src="{{user.image.url}}" class="rounded-circle" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8 mx-auto" id="user-details-column">
+                    <div class="card shadow" id="user-details-card">
+                        <div class="card-body">
+                            <br />
+                            <div class="row">
+                                <div class="col"><h6><i class="bi bi-person-circle"></i> Username: {{user.user_name}}</h6></div>
+                                <div class="col">
+                                    <h6><i class="bi bi-envelope"></i> Email: {{user.email}}</h6>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col">
+                                    <h6>
+                                        <i class="bi bi-person-bounding-box"></i> Name:
+                                        {% if name %}
+                                            {{name}}
+                                        {% else %}
+                                            &nbsp; -
+                                        {% endif %}
+                                    </h6>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col">
+                                    <h6><i class="bi bi-shop"></i> 
+                                        Address: 
+                                        {% if user.address %}
+                                            {{user.address}}
+                                        {% else %}
+                                            &nbsp; -
+                                        {% endif %}
+                                    </h6>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col">
+                                    <h6><i class="bi bi-telephone"></i> Phone:
+                                        {% if user.phone %}
+                                            {{user.phone}}
+                                        {% else %}
+                                            &nbsp; -
+                                        {% endif %}
+                                    </h6>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col">
+                                    <h6><i class="bi bi-person-badge"></i> Admin:
+                                        {% if user.is_staff %}
+                                            &nbsp;<i class="bi bi-patch-check-fill" style="color:rgb(20, 197, 20);"></i>
+                                        {% else %}
+                                            &nbsp;<i class="bi bi-shield-fill-x" style="color: red"></i>
+                                        {% endif %}
+                                    </h6>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col">
+                                    <h6>
+                                        <i class="bi bi-cursor"></i>&nbsp;Airport: {{user.airport.name}}
+                                    </h6>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="row">
+               
+            </div>
+                
+            </div>
+            
+            
+
+        </div>
+    </div>
 </div>
     
 {% endblock content %}   
+
+{% block myjs %}
+<script src="{% static 'account/js/profile/profile.js' %}"></script>
+{% endblock myjs %}
