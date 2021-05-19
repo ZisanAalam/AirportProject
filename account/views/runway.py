@@ -35,8 +35,10 @@ def edit_runway(request,id):
     return render(request, 'runway/editrunway.html',{'form':fm})
 
 def delete_runway(request,id):
+    run = Runway.objects.get(pk=id)
     if request.method=='POST':
         pi = Runway.objects.get(pk=id)
         pi.delete()
         messages.success(request, 'Runway Deleted Successfully !!! ')
         return redirect('viewrunway')
+    return render(request, 'account/deleteconfirm/delete_confirm.html',{'runway':run.runway})
