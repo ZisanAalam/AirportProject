@@ -118,8 +118,10 @@ USE_TZ = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'togothedog111@gmail.com'
-EMAIL_HOST_PASSWORD = ''
+#EMAIL_USE_SSL = True
+EMAIL_HOST_USER = os.environ.get('traces_email')
+EMAIL_HOST_PASSWORD = os.environ.get('traces_email_password')
+
 
 
 # Static files (CSS, JavaScript, Images)

@@ -1,11 +1,14 @@
 {% extends 'account/base.html' %}
+{% load static %}
 
 {% block title %}Problem View{% endblock title %}
-{% block mycss %}
 
+{% block mycss %}
+    <link rel="stylesheet" href="{% static 'account/css/del.css' %}">
 {% endblock mycss %}
+
 {% block content %}
-<div class="col-sm-12 mx-auto mt-5 bg-light">
+<div class="col-sm-12 mx-auto mt-5 bg-light del">
     <h4 class="text-center alert alert-info">Problem Record</h4>
     <table class="table">
 
@@ -41,10 +44,11 @@
 
                     <td>
                         <a href="{% url 'updatefault' f.id%}" class=""><i class="fas fa-edit" style="color:grey"></i></a>
-                        <form action="{% url 'deletefault' f.id %}" 
+                        {% comment %} <form action="{% url 'deletefault' f.id %}" 
                             method = 'post' class="d-inline"> {% csrf_token %}
                             <button type="submit" class="" style="color:red;border: none;"><i class="fas fa-trash-alt"></i></button>
-                        </form>
+                        </form> {% endcomment %}
+                        <a href="{% url 'deletefault' f.id %}" class="" onclick="myFunction"><i class="fas fa-trash-alt" style="color:red"></i></a>
                     </td>
                 </tr>
             {% endfor %}
@@ -55,3 +59,7 @@
     </table>
 </div>
 {% endblock content %}
+
+{% block myjs %}
+    <script src="{% static 'account/js/del.js' %}"></script>
+{% endblock myjs %}
