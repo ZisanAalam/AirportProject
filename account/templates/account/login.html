@@ -12,6 +12,8 @@
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="{% static 'account/css/login.css' %}" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Vesper+Libre:wght@500&display=swap" rel="stylesheet">
 
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
@@ -25,13 +27,28 @@
 
 <body class="bg">
     <div class="row">
-        <div class="col-sm-8"></div>
         <div class="col">
             <br />
-            <div class="card">
+            <br />
+            <br />
+            <br />
+            <div class="card mx-auto">
 
-                <div class="card-header">
-                    <h3 class="text-center">Login</h3>
+                <div class="card-header" id="login-header">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src={% static 'account/img/aaoi.png' %} id="aaoi-logo" />
+                        </div>
+                        <div class="col-9" id="aaoi-col">
+                            <div class="row">
+                                <h6 class="text-center">Airport Authority of India</h6>
+                            </div>
+                            <div class=" row">
+                                <h6 class="devanagari-family text-center">भारतीय विमानपत्तन प्राधिकरण</h6>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="card-body">
