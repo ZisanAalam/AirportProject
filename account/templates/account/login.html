@@ -1,63 +1,91 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
-
+    <link rel="stylesheet" href="{% static 'account/css/login.css' %}" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Vesper+Libre:wght@500&display=swap" rel="stylesheet">
 
     <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+        crossorigin="anonymous"></script>
 
 </head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-8 offset-1">
-                <div class="m-4 p-4 bg-light mt-5">
-                    <div class="card-header">
-                        <h3 class="text-center">Login</h3>
-                    </div>
-                    
-                    <div class="card-body">
-                    {% include 'account/messages.html' %}
-                        <form action="" method="POST" novalidate>
-                                {% csrf_token %}
-                            {% for fm in form%}
-                                <div class="form-group">
-                                    {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
-                                </div>
-                            {% endfor %}
-                            <div class="form-group text-center">
-                                <input type="submit" value="Login" class="btn btn-primary">
-                            </div>
-                        </form>
 
-                        <div class="d-flex justify-content-center links">
-                            Didn't have an account? <a href="{% url 'signup' %}" class="ml-2">Signup</a>
+<body class="bg">
+    <div class="row">
+        <div class="col">
+            <br />
+            <br />
+            <br />
+            <br />
+            <div class="card mx-auto">
+
+                <div class="card-header" id="login-header">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src={% static 'account/img/aaoi.png' %} id="aaoi-logo" />
                         </div>
-                        <div class="d-flex justify-content-center links">
-                            Forgot Passwordt?<a href="{% url 'reset_password' %}" class="ml-2">Reset</a>
+                        <div class="col-9" id="aaoi-col">
+                            <div class="row">
+                                <h6 class="text-center">Airport Authority of India</h6>
+                            </div>
+                            <div class=" row">
+                                <h6 class="devanagari-family text-center">भारतीय विमानपत्तन प्राधिकरण</h6>
+                            </div>
                         </div>
                     </div>
 
                 </div>
+
+                <div class="card-body">
+                    {% include 'account/messages.html' %}
+                    <form action="" method="POST" novalidate>
+                        {% csrf_token %}
+                        {% for fm in form%}
+                        <div class="form-group">
+                            {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+                        </div>
+                        {% endfor %}
+                        <div class="form-group text-center">
+                            <input type="submit" value="Login" class="btn btn-primary">
+                        </div>
+                    </form>
+
+                    <div class="d-flex justify-content-center links">
+                        Didn't have an account? <a href="{% url 'signup' %}" class="ml-2">Signup</a>
+                    </div>
+                    <div class="d-flex justify-content-center links">
+                        Forgot Passwordt?<a href="{% url 'reset_password' %}" class="ml-2">Reset</a>
+                    </div>
+                </div>
+
+
             </div>
+
         </div>
+
     </div>
-        
-    </div>
-    <script src="{% static 'account/js/jQuery.js' %}"></script> 
-    <script src="{% static 'account/js/popper.js' %}"></script>  
-    <script src="{% static 'account/js/all.min.js' %}"></script> 
-    <script src="{% static 'account/js/bootstrap.min.js' %}"></script> 
-    <script src="{% static 'account/js/custom.js' %}"></script> 
+
+    <script src="{% static 'account/js/jQuery.js' %}"></script>
+    <script src="{% static 'account/js/popper.js' %}"></script>
+    <script src="{% static 'account/js/all.min.js' %}"></script>
+    <script src="{% static 'account/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'account/js/custom.js' %}"></script>
 
 </body>
+
 </html>
