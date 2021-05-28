@@ -69,8 +69,16 @@ a:focus {
 }
 
 #sidebar .sidebar-header {
-    padding: 20px;
+    text-align: center;    
     background: #6d7fcc;
+    font-family: 'Courier New', monospace;
+    padding-bottom: 5px;
+}
+#sidebar .sidebar-header img{
+    margin-top: 3px;
+    margin-left: 15px;
+    height: 80px;
+    width: 150px;
 }
 
 #sidebar ul.components {
@@ -139,6 +147,7 @@ a.article:hover {
     background: #6d7fcc !important;
     color: #fff !important;
 }
+
 
 /* ---------------------------------------------------
     CONTENT STYLE
@@ -232,3 +241,4 @@ a.article:hover {
         transform: rotate(-45deg) translate(1px, -1px);
     }
 }
+
