@@ -96,6 +96,7 @@ def deletefault(request, id):
         pi = FaultEntry.objects.get(pk=id)
         pi.delete()
         return redirect('viewfault')
+    return render(request,'navparameter/fault_del_confirm.html')
 
 
 @unauthenticated_user

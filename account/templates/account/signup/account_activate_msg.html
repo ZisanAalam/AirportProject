@@ -1,0 +1,20 @@
+Hello {{name}} Your account is currently inactive
+
+{% if airport_admin %}
+    Please contact your admin to activate your account                   
+    {% for admin in airport_admin %}                       
+        Name : {{admin.first_name}} {{admin.last_name}}
+        Email : {{admin.email}}
+        Phone : {{admin.phone}}                                
+    {% endfor %}
+{% else %}
+        There is no active airport admin for the selected airport. Please contact super admin to activate your account. 
+        You can request to become admin of your airport                      
+        {% for admin in super_admin %}                      
+            Name : {{admin.first_name}} {{admin.last_name}}
+            Email : {{admin.email}}
+            Phone : {{admin.phone}}                          
+        {% endfor %}
+                                
+{% endif %}
+                        
