@@ -32,3 +32,14 @@ html {
 #login-header {
     background-color: aqua;
 }
+#footer-container {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(30, 20, 10, 0.63);
+}
+#footer-text {
+    color: #e9ecef;
+}
