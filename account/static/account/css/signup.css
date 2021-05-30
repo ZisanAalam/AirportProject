@@ -1,0 +1,56 @@
+html {
+    height: 100%;
+}
+
+.bg-signup {
+    background-image: url("../img/bg-signup.jpg");
+
+    height: 100%;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.card {
+    width: 50rem;
+    border: 0px;
+}
+.card-body {
+    padding: 0rem;
+}
+#signup-window {
+    max-width: 100%;
+}
+#bg-img-signup {
+    background-image: url("../img/signup-window.jpg");
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#aaoi-logo {
+    width: 70px;
+}
+.devanagari-family {
+    font-family: "Vesper Libre", serif;
+}
+#signup-header {
+    background-color: white;
+}
+.row {
+    margin: 0px;
+}
+div#signup-form.col {
+    padding: 15px;
+}
+#footer-container {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(30, 20, 10, 0.63);
+}
+#footer-text {
+    color: #e9ecef;
+}
