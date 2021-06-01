@@ -19,14 +19,14 @@ class CreateUserForm(UserCreationForm):
 
     class Meta:
         model = MyUser
-        fields = ['user_name', 'first_name', 'last_name', 'email', 'airport']
+        fields = ['user_name', 'email', 'first_name', 'last_name',  'airport']
         labels = {'email': 'Email', 'first_name': 'First Name',
                   'last_name': 'Last Name'}
 
         widgets = {'user_name': forms.TextInput(attrs={'class': 'form-control'}),
+                   'email': forms.EmailInput(attrs={'class': 'form-control'}),
                    'first_name': forms.TextInput(attrs={'class': 'form-control'}),
                    'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-                   'email': forms.EmailInput(attrs={'class': 'form-control'}),
                    'airport': forms.Select(attrs={'class': 'form-control'}),
                    }
 
@@ -143,7 +143,8 @@ class FaultEntryForm(forms.ModelForm):
     class Meta:
         model = FaultEntry
 
-        fields = ['equipment', 'runway', 'date','period','down_time', 'location', 'fault_discription', 'action_taken']
+        fields = ['equipment', 'runway', 'date', 'period',
+                  'down_time', 'location', 'fault_discription', 'action_taken']
         labels = {'location': 'Fault Location', }
         widgets = {
             'start': forms.DateInput(attrs={'class': 'dateinput form-control'}),
@@ -153,11 +154,12 @@ class FaultEntryForm(forms.ModelForm):
             'action_taken': forms.Textarea(attrs={'class': 'form-control', 'rows': '6'}),
         }
 
+
 class RunwayForm(forms.ModelForm):
     class Meta:
         model = Runway
         fields = ['runway']
         widgets = {
             'runway': forms.DateInput(attrs={'class': 'form-control'}),
-            
+
         }
