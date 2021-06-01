@@ -109,3 +109,10 @@ $( function() {
         dateFormat:'yy-mm-dd'
     });
 } );
+
+/* --------------------------- Time Picker --------------------------*/
+$('.clockpicker').clockpicker({
+    placement: 'top',
+    align: 'left',
+    donetext: 'Done'
+});

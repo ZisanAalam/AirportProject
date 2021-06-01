@@ -5,6 +5,7 @@
 
 {% block mycss %}
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="{% static 'account/css/bootstrap-clockpicker.min.css' %}">
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">-->
 
 {% endblock mycss %}
@@ -88,6 +89,7 @@
                         <div class="form-group">
                             <label>Start Date</label>
                             <input type="text" class="form-control dateinput" name="startdateinput" autocomplete="off" placeholder="Select start date">
+                            
                         </div>
                     </div>
 
@@ -101,16 +103,22 @@
                 <!--Start Time and End Time-->
                 <div class="row">
                     <div class="col-sm-6">
-                        <div class="form-group">
+                        <div class="form-group clockpicker">
                             <label>Start Time</label>
-                            <input type="text" class="form-control" name="starttimeinput" autocomplete="off" placeholder="HH:MM:SS">
+                            <input type="text" class="form-control" name="starttimeinput" autocomplete="off" >
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </span>
                         </div>
                     </div>
 
                     <div class="col-sm-6">
-                        <div class="form-group ">
+                        <div class="form-group clockpicker">
                             <label>End Time</label>
-                            <input type="text" class="form-control" name="endttimeinput" autocomplete="off" placeholder="HH:MM:SS">
+                            <input type="text" class="form-control" name="endttimeinput" autocomplete="off">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -171,4 +179,5 @@
 {% block myjs %}
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{% static 'account/js/navparameter/addfault.js' %}"></script>
+    <script src="{% static 'account/js/bootstrap-clockpicker.min.js' %}"></script>
 {% endblock myjs %}
