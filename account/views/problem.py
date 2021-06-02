@@ -63,6 +63,7 @@ class AddFaultView(TemplateView):
         dt = gethours.get_hrs(start_date_input, end_date_input,
                               start_time_input, end_time_input)
         down_time = "{0:.2f}".format(dt)
+        pr = start_time_input+'-'+end_time_input
         equipment_obj = Equipment.objects.get(id=equipment_id)
         runway_obj = Runway.objects.get(id=runway_id)
         location_obj = FaultLocation.objects.get(id=location_id)
@@ -79,7 +80,7 @@ class AddFaultView(TemplateView):
             make=make_obj,
             model=model_obj,
             date=start_date_input,
-            period='2020-2020',
+            period=pr,
             down_time=down_time,
             location=location_obj,
             locationpart=locationpart_obj,
