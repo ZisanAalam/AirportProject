@@ -118,6 +118,6 @@ class FaultLocationAdmin(admin.ModelAdmin):
 
 
 
-admin.site.site_header = "Airport Authority of India"
+admin.site.site_header = "Airports Authority of India"
 admin.site.index_title = "Admin site"
-admin.site.site_title = "Airport Authority of India"
+admin.site.site_title = "Airports Authority of India"

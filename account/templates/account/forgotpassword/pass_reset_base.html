@@ -21,10 +21,38 @@
 </head>
 
 <body>
-       
-    {% block content %}
-            
-    {% endblock content %}
+
+    <div>
+        <div class="card-header" id="login-header">
+            <div class="row">
+                <div class="col-3" id="aaoi-col">
+                    <img src={% static 'account/img/aaoi.png' %} id="aaoi-logo" />
+                    <!--<div class="row">
+                        <h8 class="text-center">Airports Authority of India</h8>
+                    </div>
+                    <div class=" row">
+                        <h8 class="devanagari-family text-center">भारतीय विमानपत्तन प्राधिकरण</h8>
+                    </div>-->
+                </div>
+                <div class="col-9">
+                    <div class="text-center title">
+                        <h3>ILS Performance Analysis</h3>
+                        <h6>Airport's Authoriy of India</h6>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        {% block content %}{% endblock content %}
+
+        <footer class="footer" id="footer-container">
+        <div class="container">
+            <p class="text-center p-2" id="footer-text">© 2021 Airports Authority of India</p>
+        </div>
+    </footer>
+    </div>   
+    
             
             
     </div>

@@ -1,0 +1,36 @@
+html {
+    height: 100%;
+}
+
+
+.col {
+    margin: 15px;
+}
+#aaoi-logo {
+    width: 150px;
+    height: 60px;
+}
+.devanagari-family {
+    font-family: "Vesper Libre", serif;
+}
+#aaoi-col {
+    padding-left: 30px;
+}
+#login-header {
+    background-color: rgba(159, 173, 199, 0.63);
+}
+#footer-container {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(159, 173, 199, 0.63);
+}
+#footer-text {
+    color: #02182e;
+}
+
+.title{
+    margin-right: 300px;
+}
