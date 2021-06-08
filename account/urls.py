@@ -24,6 +24,21 @@ urlpatterns = [
     path('addrunway/', views.runway.add_runway, name='addrunway'),
     path('deleterunway/<int:id>', views.runway.delete_runway, name='deleterunway'),
 
+    path('faultmodule/', views.faultmodule.view_faultmodule, name='viewfaultmodule'),
+    path('addfaultmodule/',views.faultmodule.add_faultmodule, name='addfaultmodule'),
+    path('editfaultmodule/<int:id>', views.faultmodule.edit_faultmodule, name='editfaultmodule'),
+    path('deletefaultmodule/<int:id>', views.faultmodule.delete_faultmodule, name='deletefaultmodule'),
+
+    path('make/', views.make.view_make, name='viewmake'),
+    path('addmake/',views.make.add_make, name='addmake'),
+    path('editmake/<int:id>', views.make.edit_make, name='editmake'),
+    path('deletemake/<int:id>', views.make.delete_make, name='deletemake'),
+
+    path('model/', views.model.view_model, name='viewmodel'),
+    path('addmodel/',views.model.add_model, name='addmodel'),
+    path('editmodel/<int:id>', views.model.edit_model, name='editmodel'),
+    path('deletemodel/<int:id>', views.model.delete_model, name='deletemodel'),
+
     path('reset_password/',
          auth_views.PasswordResetView.as_view(
              template_name="account/forgotpassword/password_reset.html", form_class=UserPasswordResetForm),

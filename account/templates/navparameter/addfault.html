@@ -18,7 +18,7 @@
     <div class="col-sm-8 bg-light mx-auto">
             <h4 class="text-center alert alert-info">Report Problem</h4>
             <hr>
-            <form action="" method="POST" class="">
+            <form action="" method="POST" id="form">
                 {% csrf_token %}
                 
                 <!--Equipment and Runway-->
@@ -88,8 +88,8 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Start Date</label>
-                            <input type="text" class="form-control dateinput" name="startdateinput" autocomplete="off" placeholder="Select start date">
-                            
+                            <input type="text" class="form-control dateinput" id="sdate" name="startdateinput" autocomplete="off" placeholder="Select start date">
+                            <span id="sdate-error" class="text-danger"></span>
                         </div>
                     </div>
 

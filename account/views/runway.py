@@ -2,11 +2,14 @@ from account.models import Runway
 from account.forms import RunwayForm
 from django.shortcuts import render,redirect
 from django.contrib import messages
+from account.decorators import unauthenticated_user
 
+@unauthenticated_user
 def view_runway(request):
     runways = Runway.runways = Runway.objects.filter(airport=request.user.airport)
     return render(request,'runway/viewrunway.html',{'runways':runways})
 
+@unauthenticated_user
 def add_runway(request):
     if request.method=="POST":
         fm = RunwayForm(request.POST)
@@ -20,6 +23,7 @@ def add_runway(request):
         fm = RunwayForm
     return render(request, 'runway/addrunway.html',{'form':fm})
 
+@unauthenticated_user
 def edit_runway(request,id):
     if request.method=='POST':
         pi = Runway.objects.get(pk=id)
@@ -34,6 +38,7 @@ def edit_runway(request,id):
         fm = RunwayForm(instance=pi)
     return render(request, 'runway/editrunway.html',{'form':fm})
 
+@unauthenticated_user
 def delete_runway(request,id):
     run = Runway.objects.get(pk=id)
     if request.method=='POST':
@@ -41,4 +46,4 @@ def delete_runway(request,id):
         pi.delete()
         messages.success(request, 'Runway Deleted Successfully !!! ')
         return redirect('viewrunway')
-    return render(request, 'account/deleteconfirm/delete_confirm.html',{'runway':run.runway})
+    return render(request, 'runway/delete_confirm.html',{'runway_name':run.runway})

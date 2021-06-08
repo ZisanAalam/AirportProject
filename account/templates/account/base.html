@@ -56,6 +56,15 @@
                         <li>
                             <a href="{% url 'viewrunway' %}">Runway</a>
                         </li>
+                        <li>
+                            <a href="{% url 'viewfaultmodule' %}">Fault Module</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'viewmake' %}">Make</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'viewmodel' %}">Model</a>
+                        </li>
                     </ul>
                 </li>
                 <li>
@@ -124,10 +133,9 @@
             </nav>
 
             {% block content %}
-            {% include 'account/messages.html' %}
                     
             {% endblock content %}
-            
+        </div>  
             
     </div>
     <!--

@@ -1,0 +1,31 @@
+{% extends 'account/base.html' %}
+
+{% block title %}Confirm Delete{% endblock title %}
+    
+{% block mycss %}
+    <style>
+
+        .del_main{
+            position : fixed;
+            top : 40%;
+            right : 25%;
+            transformation : translate(-50%, -50%);
+            width : 600px;
+            padding : 50px;
+            box-shadow: 0 5px 30px rgba(0,0,0,.30);
+            background : #fff;
+        }
+
+    }
+    </style>
+{% endblock mycss %}
+{% block content %}
+    <div class="card shadow del_main">
+        <h3>Are you sure you want to delete this?</h3>
+        <form action="" method = 'post' class="d-inline"> {% csrf_token %}
+            <input type="submit" value="Delete" class="btn btn-danger">
+            <a href="{% url 'viewfaultmodule'%}" class="btn btn-warning">Cancle</a>
+        </form>
+    </div>
+    
+{% endblock content %}

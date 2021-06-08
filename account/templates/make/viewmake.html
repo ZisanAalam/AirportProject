@@ -1,0 +1,44 @@
+{% extends 'account/base.html' %}
+{% load static %}
+
+{% block title %}Make{% endblock title %}
+
+
+{% block content %}
+    <div class="col-sm-10 offset-1">
+    {% include 'account/messages.html' %}
+        <!--<h3 class="text-dark my-5">Fault Modules</h3>-->
+        <a href="{% url 'addfaultmodule' %}" class="btn btn-success">Add Make</a>
+        <h4 class="text-center alert alert-info mt-3">Make Information</h4>
+        {% if makes%}
+        <table class="table table-hover bg-white">
+            <thead>
+                <tr>
+                    <th scope="col" >Make</th>
+                    <th scope="col" >Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for make in makes%}
+                    <tr>
+                       
+                    <td>{{make.name}}</td>
+            
+                    <td>
+                            <a href="{% url 'editmake' make.id %}" class=""><i class="fas fa-edit" style="color:grey"></i></a>
+                            <a href="{% url 'deletemake' make.id %}" class="" onclick="myFunction"><i class="fas fa-trash-alt" style="color:red"></i></a>
+                        </td>
+                        
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <h4 class="text-center alert alert-warning">No records found</h4>
+        {% endif %}
+        
+    </div>
+{% endblock content %}
+
+

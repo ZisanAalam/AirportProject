@@ -1,5 +1,5 @@
 from django.db.models import fields
-from .models import FaultEntry, FaultLocation, MyUser, Runway
+from .models import FaultEntry, FaultLocation, MyUser, Runway,FaultLocationPart,Make,Model
 from django.contrib.auth import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UsernameField, PasswordResetForm, SetPasswordForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
@@ -162,4 +162,31 @@ class RunwayForm(forms.ModelForm):
         widgets = {
             'runway': forms.DateInput(attrs={'class': 'form-control'}),
 
+        }
+
+class FaultModuleForm(forms.ModelForm):
+    class Meta:
+        model = FaultLocationPart
+        fields = ['faultlocation','name']
+        widgets = {
+            'name': forms.TextInput(attrs={'class':'form-control'}),
+        
+        }
+
+class MakeForm(forms.ModelForm):
+    class Meta:
+        model = Make
+        fields = ['name']
+        widgets = {
+            'name': forms.TextInput(attrs={'class':'form-control'}),
+        
+        }
+
+class ModelForm(forms.ModelForm):
+    class Meta:
+        model = Model
+        fields = ['make','name']
+        widgets = {
+            'name': forms.TextInput(attrs={'class':'form-control'}),
+        
         }

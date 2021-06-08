@@ -116,3 +116,19 @@ $('.clockpicker').clockpicker({
     align: 'left',
     donetext: 'Done'
 });
+
+/* ----------------------------- Form Validation ------------------------------- */
+
+const form = document.getElementById('form')
+const sdate = document.getElementById('sdate')
+form.addEventListener('submit',(e) =>{
+    e.preventDefault()
+    checkInputs()
+});
+
+function checkInputs(){
+    var sdate = sdate.value();
+    if(sdate==''){
+        document.getElementById('sdate-error').innerHTML ="Please enter start date"
+    }
+}

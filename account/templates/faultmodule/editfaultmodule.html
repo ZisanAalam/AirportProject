@@ -1,19 +1,20 @@
 {% extends 'account/base.html' %}
 {% load static %}
 
-{% block title %}Runway Edit{% endblock title %}
+{% block title %}Fualt Module Edit{% endblock title %}
 
 
 {% block content %}
     <div class="col-sm-10">
-        <h3 class="text-dark my-5">Edit Runway</h3>
+        <h3 class="text-dark my-5">Edit Fault Module</h3>
        <form action="" method="post" novalidate>
         {% csrf_token %}
             <div class="form-group">
+                <!--{{form.as_p}} -->
                 {{form.label_tag}} {{form}} <small class="text-danger">{{form.errors|striptags}}</small>
             </div>
             <input type="submit" value="Edit" class="btn btn-primary">
-            <a href="{% url 'viewrunway'%}" class="btn btn-secondary"><i class="fas fa-long-arrow-alt-left"></i> Back to Runway</a>
+            <a href="{% url 'viewfaultmodule'%}" class="btn btn-secondary"><i class="fas fa-long-arrow-alt-left"></i> Back  </a>
             
        </form>
     </div>
