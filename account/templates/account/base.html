@@ -31,7 +31,7 @@
             <div class="sidebar-header">
                 <!--<h3 >Airport's Authoriy of India</h3>-->
                 <img src="{% static 'account/img/aaoi.png' %}" alt="Image" id="logo">
-                <p>Airport's Authoriy of India</p>
+                <p style="color:blue;">Airport's Authoriy of India</p>
                 
             </div>
 
@@ -53,6 +53,11 @@
                         <li>
                             <a href="{% url 'calcnav' %}">Performace Analysis</a>
                         </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-layer-group"></i>Components</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu1">
                         <li>
                             <a href="{% url 'viewrunway' %}">Runway</a>
                         </li>
@@ -101,7 +106,8 @@
                     <a href="{% url 'logout' %}" class="article">Logout</a>
                 </li>
             </ul>
-            <p class="text-white text-center mt-5">&copy;2021 Airports Authority of India</p>
+            <p class="text-white text-center mt-5">&copy;2021</p>
+            <p class="text-white text-center">Airports Authority of India</p>
         </nav>
 
         <!-- Page Content Holder -->

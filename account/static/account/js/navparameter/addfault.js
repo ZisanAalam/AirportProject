@@ -2,6 +2,34 @@ $('.ui.dropdown').dropdown({
     forceSelection : false
 });
 
+/* ----------------------------- Form Validation ------------------------------- 
+
+const form = document.getElementById('form')
+form.addEventListener('submit',(e) =>{
+    e.preventDefault()
+    checkInputs()
+});
+
+
+function checkInputs(){
+    const sdate = document.getElementById('sdate').value()
+    const edate = document.getElementById('edate').value()
+    const stime = document.getElementById('stime').value()
+    const etime = document.getElementById('etime').value()
+    if(sdate==''){
+        document.getElementById('sdate-error').innerHTML ="Please enter start date"
+    }
+    if(edate==''){
+        document.getElementById('sdate-error').innerHTML ="Please enter end date"
+    } 
+    if(stime==''){
+        document.getElementById('sdate-error').innerHTML ="Please enter start time"
+    } 
+    if(etime==''){
+        document.getElementById('sdate-error').innerHTML ="Please enter end time"
+    }  
+}
+*/
 
 /* ----------------------- For Equipment dropdown ----------------------------------*/
 const inputRunway = document.getElementById('runways')
@@ -117,18 +145,3 @@ $('.clockpicker').clockpicker({
     donetext: 'Done'
 });
 
-/* ----------------------------- Form Validation ------------------------------- */
-
-const form = document.getElementById('form')
-const sdate = document.getElementById('sdate')
-form.addEventListener('submit',(e) =>{
-    e.preventDefault()
-    checkInputs()
-});
-
-function checkInputs(){
-    var sdate = sdate.value();
-    if(sdate==''){
-        document.getElementById('sdate-error').innerHTML ="Please enter start date"
-    }
-}

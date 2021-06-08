@@ -9,7 +9,6 @@
 {% block content %}
     <div class="col-sm-10 del">
     {% include 'account/messages.html' %}
-        <h3 class="text-dark my-5">Runways</h3>
         <a href="{% url 'addrunway' %}" class="btn btn-success">Add Runway</a>
         <h4 class="text-center alert alert-info mt-3">Runway Information</h4>
         {% if runways%}

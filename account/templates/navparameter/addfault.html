@@ -15,7 +15,8 @@
 {% block content %}
 
     
-    <div class="col-sm-8 bg-light mx-auto">
+    <div class="col-sm-10 bg-light mx-auto">
+        <div class="card px-5 py-3 shadow">
             <h4 class="text-center alert alert-info">Report Problem</h4>
             <hr>
             <form action="" method="POST" id="form">
@@ -96,7 +97,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>End Date</label>
-                            <input type="text" class="form-control dateinput" name="endtdateinput" autocomplete="off" placeholder="select end date">
+                            <input type="text" class="form-control dateinput" id="edate" name="endtdateinput" autocomplete="off" placeholder="select end date">
                         </div>
                     </div>
                 </div>
@@ -105,7 +106,7 @@
                     <div class="col-sm-6">
                         <div class="form-group clockpicker">
                             <label>Start Time</label>
-                            <input type="text" class="form-control" name="starttimeinput" autocomplete="off" >
+                            <input type="text" class="form-control" id="stime" name="starttimeinput" autocomplete="off" >
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-time"></span>
                             </span>
@@ -115,7 +116,7 @@
                     <div class="col-sm-6">
                         <div class="form-group clockpicker">
                             <label>End Time</label>
-                            <input type="text" class="form-control" name="endttimeinput" autocomplete="off">
+                            <input type="text" class="form-control"id="etime" name="endttimeinput" autocomplete="off">
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-time"></span>
                             </span>
@@ -172,6 +173,7 @@
                 
             </form>
             <br>
+        </div>
     </div>
 
 {% endblock content %}

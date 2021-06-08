@@ -9,11 +9,11 @@
 
 {% block content %}
 
-<div class="col-sm-12 bg-light del">
-    <div class="card shadow">
-        <h4 class="text-center alert alert-info sticky-top">Problem Record</h4>
-        <div style="height:680px; overflow-y: scroll;">
-            <table class="table">
+<div class="col-sm-12 bg-light px-0 del">
+{% include 'account/messages.html' %}
+    <h4 class="text-center alert alert-info sticky-top">Problem Record</h4>
+    <div style="height:570px; overflow-y: scroll;">
+        <table class="table">
 
                 {% if fault %}
                     <tr>
@@ -59,8 +59,7 @@
                     <h4 class="text-center alert alert-warning">No Record Found</h4>
                 {% endif %}
 
-            </table>
-        </div>
+        </table>
     </div>
 </div>
 
