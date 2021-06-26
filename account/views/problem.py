@@ -1,3 +1,4 @@
+from django.db.models.query import QuerySet
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
@@ -5,6 +6,7 @@ from django.db.models import F
 from account.models import Equipment, Runway, FaultLocation, FaultEntry, FaultLocationPart, Model, Make
 from account.decorators import unauthenticated_user
 from account.forms import FaultEntryForm
+from account.filters import FaultEntryFilter
 from datetime import datetime, date
 from .calc import gethours
 from operator import itemgetter
@@ -27,7 +29,12 @@ class ViewFault(TemplateView):
         model = Model.objects.all()
         locations = FaultLocation.objects.all()
         locationpart = FaultLocationPart.objects.all()
-        context = {'form': fm, 'fault': data, 'equipments': equipments, 'make': make, 'model': model,
+
+
+        myfilter = FaultEntryFilter(self.request.GET, queryset=data)
+        data = myfilter.qs
+
+        context = {'form': fm, 'fault': data,'myfilter':myfilter, 'equipments': equipments, 'make': make, 'model': model,
                    'runways': runways, 'locations': locations, 'locationpart': locationpart}
         return context
 
