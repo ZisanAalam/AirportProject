@@ -115,7 +115,6 @@ class Model(models.Model):
 
 class FaultLocation(models.Model):
     location = models.CharField(max_length=50)
-    airport = models.ForeignKey(Airport, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.location
@@ -134,7 +133,8 @@ class FaultEntry(models.Model):
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE)
     make = models.ForeignKey(Make, on_delete=models.CASCADE)
     model = models.ForeignKey(Model, on_delete=models.CASCADE)
-    date = models.DateField(auto_now_add=False, auto_now=False)
+    date = models.DateField(
+        auto_now_add=False, auto_now=False)
     period = models.CharField(max_length=255)
     down_time = models.CharField(max_length=255)
     location = models.ForeignKey(FaultLocation, on_delete=models.CASCADE)

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from .models import Runway, Equipment, FaultEntry, FaultLocation, Airport, MyUser, FaultLocationPart,Make,Model
+from .models import Runway, Equipment, FaultEntry, FaultLocation, Airport, MyUser, FaultLocationPart, Make, Model
 
 # Register your models here.
 
@@ -67,14 +67,17 @@ class RunwayAdmin(admin.ModelAdmin):
 
 admin.site.register(Runway, RunwayAdmin)
 
+
 @admin.register(Equipment)
 class EquipmentAdmin(admin.ModelAdmin):
-    list_display =['id','equipment','runway']
+    list_display = ['id', 'equipment', 'runway']
+
 
 admin.site.register(Airport)
 admin.site.register(FaultLocationPart)
 admin.site.register(Make)
 admin.site.register(Model)
+admin.site.register(FaultLocation)
 
 
 @admin.register(FaultEntry)
@@ -97,25 +100,6 @@ class FaultEntryAdmin(admin.ModelAdmin):
             kwargs["queryset"] = FaultLocation.objects.filter(
                 airport=request.user.airport)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
-
-
-@admin.register(FaultLocation)
-class FaultLocationAdmin(admin.ModelAdmin):
-    list_display = ['location', 'airport']
-
-    def get_queryset(self, request):
-        all_faultlocations = super(
-            FaultLocationAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return all_faultlocations
-        return all_faultlocations.filter(airport=request.user.airport)
-
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == "airport" and not request.user.is_superuser:
-            kwargs["queryset"] = Airport.objects.filter(
-                id=request.user.airport.id)
-        return super().formfield_for_foreignkey(db_field, request, **kwargs)
-
 
 
 admin.site.site_header = "Airports Authority of India"
