@@ -4,72 +4,74 @@
 {% block title %}Performance Analysis {% endblock title %}
 
 {% block mycss %}
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">-->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">-->
 {% endblock mycss %}
 
 {% block content %}
 
-    
-    <div class="col-sm-10 bg-light mx-auto">
-        <h4 class="text-center alert alert-info">Performance Analysis</h4>
-        <hr>
-        <form action="" method="POST" class="">
-            {% csrf_token %} 
-            <!--Makes and Model-->
-            <div class="row">
-                <div class="col-sm-6">
-                        <label>Make</label><br/>
-                        <div class="ui selection dropdown" id="makes">
-                            <input type="hidden" name="make" class="myinput" id="nav-make">
-                            <i class="dropdown icon"></i>
-                            <div class="default text">Choose a Make</div>
-                            <div class="menu" id="makes-data-box">
-                                {% for make in makes %}
-                                    <div class="item" data-value="{{make.id}}">{{make.name}}</div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                </div>
-                    
-                <div class="col-sm-6">
-                        <label>Model</label><br />
-                        <div class="ui selection dropdown" id="models">
-                            <input type="hidden" class="myinput" name="model" id="nav-model">
-                            <i class="dropdown icon"></i>
-                            <div class="default text" id="model-text">Choose a Model</div>
-                            <div class="menu" id="models-data-box">
-                                <!-- Dropdown data from ajax-->
-                            </div>
-                        </div>
-                </div>
-                    
-            </div>
-            <br />
-            <!--Start Date and End Date-->
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label>Start Date</label>
-                        <input type="text" class="form-control dateinput myinput" name="startdateinput" id="nav-startdate" autocomplete="off" placeholder="Select start date" />
-                    </div>
-                </div>
 
-                <div class="col-sm-6">
-                    <div class="form-group ">
-                        <label>End Date</label>
-                        <input type="text" class="form-control dateinput myinput" name="enddateinput" id="nav-enddate" autocomplete="off" placeholder="Select end date">
+<div class="col-sm-10 bg-light mx-auto">
+    <h4 class="text-center alert alert-info">Performance Analysis</h4>
+    <hr>
+    <form action="" method="POST" class="">
+        {% csrf_token %}
+        <!--Makes and Model-->
+        <div class="row">
+            <div class="col-sm-6">
+                <label>Make</label><br />
+                <div class="ui selection dropdown" id="makes">
+                    <input type="hidden" name="make" class="myinput" id="nav-make">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Choose a Make</div>
+                    <div class="menu" id="makes-data-box">
+                        {% for make in makes %}
+                        <div class="item" data-value="{{make.id}}">{{make.name}}</div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
-            <!-- br / -->    
-            <!-- div class="col-sm-6">
+
+            <div class="col-sm-6">
+                <label>Model</label><br />
+                <div class="ui selection dropdown" id="models">
+                    <input type="hidden" class="myinput" name="model" id="nav-model">
+                    <i class="dropdown icon"></i>
+                    <div class="default text" id="model-text">Choose a Model</div>
+                    <div class="menu" id="models-data-box">
+                        <!-- Dropdown data from ajax-->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <br />
+        <!--Start Date and End Date-->
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Start Date</label>
+                    <input type="text" class="form-control dateinput myinput" name="startdateinput" id="nav-startdate"
+                        autocomplete="off" placeholder="Select start date" />
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group ">
+                    <label>End Date</label>
+                    <input type="text" class="form-control dateinput myinput" name="enddateinput" id="nav-enddate"
+                        autocomplete="off" placeholder="Select end date">
+                </div>
+            </div>
+        </div>
+        <!-- br / -->
+        <!-- div class="col-sm-6">
                 <div class="row">
                     <label>Navigation Parameters</label>            
                 </div>
             </div -->
-            
-            <!-- div class="container">
+
+        <!-- div class="container">
                 <br/>
             <div class="row">
                 
@@ -103,27 +105,27 @@
              
             </div>
             </div -->
-            <!-- br / -->
-            <br />
-            <br />
-            <div class="col">
+        <!-- br / -->
+        <br />
+        <br />
+        <div class="col">
             <h4 class="text-center" id="navtable-init-header">Performance Metrics</h4>
             <br />
             <table class="table table-bordered table-hover" id="navtable-init">
                 <thead>
                     <tr>
-                    <th>
-                        Availability
-                    </th>
-                    <th>
-                        Reliability
-                    </th>
-                    <th>
-                        Integrity
-                    </th>
-                    <th>
-                        Continuity
-                    </th>
+                        <th>
+                            Availability
+                        </th>
+                        <th>
+                            Reliability
+                        </th>
+                        <th>
+                            Integrity
+                        </th>
+                        <th>
+                            Continuity
+                        </th>
                     </tr>
                 </thead>
                 <tbody id="navtable-init-body">
@@ -139,45 +141,45 @@
             <table class="table table-bordered table-hover" id="navtable">
                 <thead>
                     <tr>
-                    <th>
-                        Equipment
-                    </th>
-                    <th>
-                        Fault location
-                    </th>
-                    <th>
-                        Faulty module
-                    </th>
-                    <th>
-                        No. of failures
-                    </th>
-                    <th>
-                        Failure rate (fmh)
-                    </th>
+                        <th>
+                            Equipment
+                        </th>
+                        <th>
+                            Fault location
+                        </th>
+                        <th>
+                            Faulty module
+                        </th>
+                        <th>
+                            No. of failures
+                        </th>
+                        <th>
+                            Failure rate (fmh)
+                        </th>
                     </tr>
                 </thead>
                 <tbody id="navtable-body">
 
                 </tbody>
-                
+
             </table>
             <br />
-            <div class="container" id="line-chart-div">
-                <canvas id="lineChart"></canvas>
+            <div class="container" id="bar-chart-div">
+                <canvas id="barChart"></canvas>
             </div>
-        
-    </div>
-        </form>
-        <br>
-    </div>
+
+        </div>
+    </form>
+    <br>
+</div>
 
 
 {% endblock content %}
 
 {% block myjs %}
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="{% static 'account/js/navparameter/cal_nav_para.js' %}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'account/js/navparameter/cal_nav_para.js' %}"></script>
 
-    
+
 {% endblock myjs %}

@@ -30,11 +30,10 @@ class ViewFault(TemplateView):
         locations = FaultLocation.objects.all()
         locationpart = FaultLocationPart.objects.all()
 
-
         myfilter = FaultEntryFilter(self.request.GET, queryset=data)
         data = myfilter.qs
 
-        context = {'form': fm, 'fault': data,'myfilter':myfilter, 'equipments': equipments, 'make': make, 'model': model,
+        context = {'form': fm, 'fault': data, 'myfilter': myfilter, 'equipments': equipments, 'make': make, 'model': model,
                    'runways': runways, 'locations': locations, 'locationpart': locationpart}
         return context
 
@@ -47,8 +46,7 @@ class AddFaultView(TemplateView):
         equipments = Equipment.objects.all()
 
         runways = Runway.objects.filter(airport=self.request.user.airport)
-        locations = FaultLocation.objects.filter(
-            airport=self.request.user.airport)
+        locations = FaultLocation.objects.all()
 
         makes = Make.objects.all()
         context = {'equipments': equipments,
@@ -104,7 +102,7 @@ def deletefault(request, id):
         pi = FaultEntry.objects.get(pk=id)
         pi.delete()
         return redirect('viewfault')
-    return render(request,'navparameter/fault_del_confirm.html')
+    return render(request, 'navparameter/fault_del_confirm.html')
 
 
 @unauthenticated_user
@@ -217,7 +215,8 @@ def nav_calculation(request):
                     'total_failure_time': each_item['failure_time'],
                     'operating_time': each_item['operating_time'],
                     'tx_mtbf': float('inf'),
-                    'mx_mtbf': float('inf')
+                    'mx_mtbf': float('inf'),
+                    'other_mtbf': float('inf')
                 }
                 new_value['mtbo'] = 1.0/each_item['failure_rate']
             else:
@@ -229,9 +228,12 @@ def nav_calculation(request):
             if each_item['location'] == 'TX':
                 new_value['tx_mtbf'] = 1.0/each_item['failure_rate'] if new_value['tx_mtbf'] == float(
                     'inf') else (1.0/each_item['failure_rate'])+new_value['tx_mtbf']
-            else:
+            elif each_item['location'] == 'MCU':
                 new_value['mx_mtbf'] = 1.0/each_item['failure_rate'] if new_value['mx_mtbf'] == float(
                     'inf') else (1.0/each_item['failure_rate'])+new_value['mx_mtbf']
+            else:
+                new_value['other_mtbf'] = 1.0/each_item['failure_rate'] if new_value['other_mtbf'] == float(
+                    'inf') else (1.0/each_item['failure_rate'])+new_value['other_mtbf']
 
             new_value['mtbf'] = 1.0/new_value['total_failure_rate']
             new_value['availability'] = (new_value['operating_time']-new_value['total_failure_time']) / \
@@ -251,5 +253,6 @@ def nav_calculation(request):
             if index == len(fault_entries) - 1:
                 nav_parameters[0].pop('tx_mtbf')
                 nav_parameters[0].pop('mx_mtbf')
+                nav_parameters[0].pop('other_mtbf')
 
         return JsonResponse({'data': fault_entries, 'navparams': nav_parameters})

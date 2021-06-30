@@ -65,11 +65,11 @@ Array.from(allinput).forEach(item=>item.onchange=()=>{
                 document.getElementById('radarChart').style.display="none"
                 document.getElementById('navtable-header').style.display="none"
                 document.getElementById('navtable').style.display="none"
-                document.getElementById('lineChart').style.display="none"
+                document.getElementById('barChart').style.display="none"
             }
             else{
                 document.getElementById('radarChart').remove()
-                document.getElementById('lineChart').remove()
+                document.getElementById('barChart').remove()
                 all_rows_dom=document.querySelectorAll('tr')
                 all_headers_dom=document.querySelectorAll('thead')
                 for (var i=0; i<all_rows_dom.length;i++){
@@ -80,14 +80,14 @@ Array.from(allinput).forEach(item=>item.onchange=()=>{
                 performance_table(response.navparams)
                 radar_chart(response.navparams)
                 reliability_table(response.data)
-                line_chart(response.data)
+                bar_chart(response.data)
                 
                 document.getElementById('navtable-init-header').style.display="block"
                 document.getElementById('navtable-init').style.display="table"
                 document.getElementById('radarChart').style.display="inline-block"
                 document.getElementById('navtable-header').style.display="block"
                 document.getElementById('navtable').style.display="table"
-                document.getElementById('lineChart').style.display="inline-block"
+                document.getElementById('barChart').style.display="inline-block"
             }
         },
         error: function(error){
@@ -199,7 +199,7 @@ const radar_chart=(response_data)=>{
     
 }
 
-const line_chart=(response_data)=>{
+const bar_chart=(response_data)=>{
     
     var labels=response_data.map(item=>{
         return `${item.equipment}, ${item.locationpart}`
@@ -213,7 +213,9 @@ const line_chart=(response_data)=>{
           data: dataset,
           fill: false,
           backgroundColor: response_data.map(()=>'rgb(75, 192, 192)'),
-          tension: 0.1
+          tension: 0.1,
+          barThickness: 100,
+        maxBarThickness: 200,
         }]
       };
     const config = {
@@ -227,11 +229,11 @@ const line_chart=(response_data)=>{
             },
         }
       };
-    var chartDiv=document.getElementById('line-chart-div');
+    var chartDiv=document.getElementById('bar-chart-div');
     var ctx=document.createElement('canvas')
-    ctx.setAttribute('id','lineChart')
+    ctx.setAttribute('id','barChart')
     chartDiv.appendChild(ctx)
-    var lineChart=new Chart(ctx,config)
+    var barChart=new Chart(ctx,config)
 
     
 }

@@ -4,183 +4,196 @@
 {% block title %}Report Problem{% endblock title %}
 
 {% block mycss %}
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="{% static 'account/css/bootstrap-clockpicker.min.css' %}">
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">-->
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="{% static 'account/css/bootstrap-clockpicker.min.css' %}">
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">-->
+<link rel="stylesheet" href="{% static 'account/css/faultentry.css' %}">
 {% endblock mycss %}
 
 
 
 {% block content %}
 
-    
-    <div class="col-sm-10 bg-light mx-auto">
-        <div class="card px-5 py-3 shadow">
-            <h4 class="text-center alert alert-info">Report Problem</h4>
-            <hr>
-            <form action="" method="POST" id="form">
-                {% csrf_token %}
-                
-                <!--Equipment and Runway-->
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Runway</label>
-                            <div class="ui selection dropdown" id="runways">
-                                <input type="hidden" name="runway">
-                                <i class="dropdown icon"></i>
-                                <div class="default text">Choose a Runway</div>
-                                <div class="menu" id="runway-data-box">
-                                    {% for runway in runways %}
-                                        <div class="item" data-value="{{runway.id}}">{{runway.runway}}</div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-sm-6">
-                        <label>Equipment</label>
-                        <div class="ui selection dropdown" id="equipments">
-                            <input type="hidden" name="equipment">
-                            <i class="dropdown icon"></i>
-                            <div class="default text" id="equipment-text">Choose an Equipment</div>
-                            <div class="menu" id="equipment-data-box">
-                                <!-- Dropdown data from ajax-->
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
 
-                <!--Makes and Model-->
-                <div class="row">
-                    <div class="col-sm-6">
-                        <label>Make</label>
-                        <div class="ui selection dropdown" id="makes">
-                            <input type="hidden" name="make">
+<div class="col-sm-10 bg-light mx-auto">
+    <div class="card mx-auto px-5 py-3 shadow">
+        <h4 class="text-center alert alert-info">Report Problem</h4>
+        <hr>
+        <form action="" method="POST" id="form">
+            {% csrf_token %}
+
+            <!--Equipment and Runway-->
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Runway</label><br />
+                        <div class="ui selection dropdown" id="runways">
+                            <input type="hidden" name="runway" id="runway">
                             <i class="dropdown icon"></i>
-                            <div class="default text">Choose a Make</div>
-                            <div class="menu" id="makes-data-box">
-                                {% for make in makes %}
-                                    <div class="item" data-value="{{make.id}}">{{make.name}}</div>
+                            <div class="default text">Choose a Runway</div>
+                            <div class="menu" id="runway-data-box">
+                                {% for runway in runways %}
+                                <div class="item" data-value="{{runway.id}}">{{runway.runway}}</div>
                                 {% endfor %}
                             </div>
                         </div>
+                        <span id="runway-error" class="text-danger"></span>
+
                     </div>
-                    
-                    <div class="col-sm-6">
-                        <label>Model</label>
-                        <div class="ui selection dropdown" id="models">
-                            <input type="hidden" name="model">
+                </div>
+
+                <div class="col-sm-6">
+                    <label>Equipment</label><br />
+                    <div class="ui selection dropdown" id="equipments">
+                        <input type="hidden" name="equipment" id="equipment">
+                        <i class="dropdown icon"></i>
+                        <div class="default text" id="equipment-text">Choose an Equipment</div>
+                        <div class="menu" id="equipment-data-box">
+                            <!-- Dropdown data from ajax-->
+                        </div>
+                    </div>
+                    <span id="equipment-error" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <!--Makes and Model-->
+            <div class="row">
+                <div class="col-sm-6">
+                    <label>Make</label><br />
+                    <div class="ui selection dropdown" id="makes">
+                        <input type="hidden" name="make" id="make">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Choose a Make</div>
+                        <div class="menu" id="makes-data-box">
+                            {% for make in makes %}
+                            <div class="item" data-value="{{make.id}}">{{make.name}}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <span id="make-error" class="text-danger"></span>
+                </div>
+
+                <div class="col-sm-6">
+                    <label>Model</label><br />
+                    <div class="ui selection dropdown" id="models">
+                        <input type="hidden" name="model" id="model">
+                        <i class="dropdown icon"></i>
+                        <div class="default text" id="model-text">Choose a Model</div>
+                        <div class="menu" id="models-data-box">
+                            <!-- Dropdown data from ajax-->
+                        </div>
+                    </div>
+                    <span id="model-error" class="text-danger"></span>
+                </div>
+
+            </div>
+            <br />
+            <!--Start Date and End Date-->
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Start Date</label>
+                        <input type="text" class="form-control dateinput" id="sdate" name="startdateinput"
+                            autocomplete="off" placeholder="Select start date">
+                        <span id="sdate-error" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>End Date</label>
+                        <input type="text" class="form-control dateinput" id="edate" name="endtdateinput"
+                            autocomplete="off" placeholder="Select end date">
+                        <span id="edate-error" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <!--Start Time and End Time-->
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group clockpicker">
+                        <label>Start Time</label>
+                        <input type="text" class="form-control" id="stime" name="starttimeinput" autocomplete="off">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-time"></span>
+                        </span>
+                        <span id="stime-error" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group clockpicker">
+                        <label>End Time</label>
+                        <input type="text" class="form-control" id="etime" name="endttimeinput" autocomplete="off"
+                            pattern="[0-2][0-4]:[0-5]\d{1}:[0-5]\d{1}">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-time"></span>
+                        </span>
+                        <span id="etime-error" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <!--Fault Location-->
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Fault Location</label><br />
+
+                        <div class="ui selection dropdown" id="locations">
+                            <input type="hidden" name="location" id="location">
                             <i class="dropdown icon"></i>
-                            <div class="default text" id="model-text">Choose a Model</div>
-                            <div class="menu" id="models-data-box">
+                            <div class="default text">Choose fault location</div>
+                            <div class="menu" id="location-data-box">
+                                {% for location in locations %}
+                                <div class="item" data-value="{{location.id}}">{{location.location}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <span id="location-error" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Fault Module</label><br />
+                        <div class="ui selection dropdown" id="location-parts">
+                            <input type="hidden" name="location-part" id="location-part">
+                            <i class="dropdown icon"></i>
+                            <div class="default text" id="location-Part-Text">Choose a Module</div>
+                            <div class="menu" id="location-part-data-box">
                                 <!-- Dropdown data from ajax-->
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-
-                <!--Start Date and End Date-->
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Start Date</label>
-                            <input type="text" class="form-control dateinput" id="sdate" name="startdateinput" autocomplete="off" placeholder="Select start date">
-                            <span id="sdate-error" class="text-danger"></span>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>End Date</label>
-                            <input type="text" class="form-control dateinput" id="edate" name="endtdateinput" autocomplete="off" placeholder="select end date">
-                        </div>
-                    </div>
-                </div>
-                <!--Start Time and End Time-->
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group clockpicker">
-                            <label>Start Time</label>
-                            <input type="text" class="form-control" id="stime" name="starttimeinput" autocomplete="off" >
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="form-group clockpicker">
-                            <label>End Time</label>
-                            <input type="text" class="form-control"id="etime" name="endttimeinput" autocomplete="off">
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <!--Fault Location-->
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Fault Location</label>
-                            
-                            <div class="ui selection dropdown" id="locations">
-                                <input type="hidden" name="location">
-                                <i class="dropdown icon"></i>
-                                <div class="default text">Choose fault location</div>
-                                <div class="menu" id="location-data-box">
-                                    {% for location in locations %}
-                                        <div class="item" data-value="{{location.id}}">{{location.location}}</div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Fault Module</label>
-                            <div class="ui selection dropdown" id="location-parts">
-                                <input type="hidden" name="location-part">
-                                <i class="dropdown icon"></i>
-                                <div class="default text" id="location-Part-Text">Choose a Module</div>
-                                <div class="menu" id="location-part-data-box">
-                                    <!-- Dropdown data from ajax-->
-                                </div>   
                             </div>
                             <span><a href="{% url 'addfaultmodule'%}" class="font-italic ml-2">Add Module <i class="fas fa-share-square"></i></a></span>
                         </div>
+                        <span id="module-error" class="text-danger"></span>
                     </div>
                 </div>
-                <!--Fault Discription-->
-                <div class="form-group">
-                    <label for="fault_discription">Fault Discription</label>
-                    <textarea class="form-control rounded-0" name="fault_discription" rows="6"></textarea>
-                </div>
+            </div>
+            <!--Fault Discription-->
+            <div class="form-group">
+                <label for="fault_discription">Fault Description</label>
+                <textarea class="form-control rounded-0" name="fault_discription" rows="6"></textarea>
+            </div>
 
-                <!--Action Taken-->
-                <div class="form-group">
-                    <label for="action_taken">Action Taken</label>
-                    <textarea class="form-control rounded-0" name="action_taken" rows="6"></textarea>
-                </div>
-           
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-success form-control" value="Report">
-                    </div>
-                
-            </form>
-            <br>
-        </div>
+            <!--Action Taken-->
+            <div class="form-group">
+                <label for="action_taken">Action Taken</label>
+                <textarea class="form-control rounded-0" name="action_taken" rows="6"></textarea>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-success form-control" value="Report">
+            </div>
+
+        </form>
+        <br>
     </div>
+</div>
 
 {% endblock content %}
 
 {% block myjs %}
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="{% static 'account/js/navparameter/addfault.js' %}"></script>
-    <script src="{% static 'account/js/bootstrap-clockpicker.min.js' %}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{% static 'account/js/navparameter/addfault.js' %}"></script>
+<script src="{% static 'account/js/bootstrap-clockpicker.min.js' %}"></script>
 {% endblock myjs %}
