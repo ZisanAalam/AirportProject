@@ -52,6 +52,13 @@ function checkInputs(event){
     const location=location_element.value
     const module=module_element.value
     var flag=false
+
+    let dateObj = new Date();
+    let month = String(dateObj.getMonth() + 1).padStart(2, '0');
+    let day = String(dateObj.getDate()).padStart(2, '0');
+    let year = dateObj.getFullYear();
+    let cdate = year + '-' + month + '-' + day;
+
     if(runway==""){
         document.getElementById('runway-error').innerHTML ="Please select a runway."
         flag=true
@@ -91,6 +98,18 @@ function checkInputs(event){
     if(!timeregex.test(etime)){
         document.getElementById('etime-error').innerHTML ="Please enter end time"
         flag=true
+    }
+    if(sdate>edate){
+        document.getElementById('date-error').innerHTML ="Invalid date entry. Start date cannot be greated than end date"
+        flag=true 
+    }
+    if(edate<sdate){
+        document.getElementById('date-error').innerHTML ="Invalid date entry. End date cannot be smaller than Start date"
+        flag=true 
+    }
+    if(sdate>cdate || edate>cdate){
+        document.getElementById('date-error').innerHTML ="Invalid date entry. Selected date is greater than current date"
+        flag=true 
     }
     if(flag){
         event.preventDefault()
