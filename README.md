@@ -70,6 +70,14 @@ python manage.py createsuperuser
 <br>
 The deployment procedures vary with different factors; one of them being the platform chosen. The procedure below shows the deployment procedures in a Linux machine(commands shown for Ubuntu, but packages are available for most distributions). We use <a href="https://www.nginx.com/">NGINX</a> web server, but since it doesn't support wsgi specifications, we need <a href="https://uwsgi-docs.readthedocs.io/en/latest/">uWSGI</a> as well. uWSGI in itself is a pretty capable http server but NGINX is preferred for its high throughput of static content.<br><br>
 <ol>
+  <li>First, in <i>settings.py</i>, change the following lines</li><br>
+  
+  ```python
+  DEBUG=False
+  #This is just a placeholder domain, change the domain to the one you've purchased.
+  ALLOWED_HOSTS=['airportauthority.com.in', 'www.airportauthority.com.in']
+  ```
+  
 <li>Install uWSGI package.</li><br>
   
 ```bash
