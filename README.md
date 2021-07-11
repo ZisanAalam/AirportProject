@@ -87,7 +87,7 @@ pip install uwsgi
   sudo /etc/init.d/nginx start  
 ```
   <li>Create the nginx configuration files as follows.</li>
-  You will need the uwsgi_params file, which is available <a href=" https://github.com/nginx/nginx/blob/master/conf/uwsgi_params">here</a>. This should be copied into the project directory.
+  You will need the uwsgi_params file, which is available <a href="https://github.com/nginx/nginx/blob/master/conf/uwsgi_params">here</a>. This should be copied into the project directory.
  Now create a file called AirportProject_nginx.conf in the /etc/nginx/sites-available/ directory, and add the following. Make sure to replace the paths and the DNS to match your specifications.
   
   ```conf
